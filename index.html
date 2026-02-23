@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💕 Happy Birthday My Love - Our Memory Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel:wght@400;600&family=Satisfy&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0b0b1a;--card:#12122a;--pink:#ff5e9e;--rose:#e8a0bf;
+  --gold:#d4a574;--blue:#7eb8ff;--lavender:#c5a3e8;--mint:#a8e6cf;
+  --peach:#ffd3b6;--text:#f0eaff;--text2:#a09ab8;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Quicksand',sans-serif;overflow-x:hidden}
+
+/* ===== STARFIELD ===== */
+.stars{position:fixed;inset:0;z-index:0;overflow:hidden}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite alternate}
+@keyframes twinkle{0%{opacity:.15;transform:scale(.7)}100%{opacity:1;transform:scale(1.3)}}
+
+/* ===== NEBULA BLOBS ===== */
+.nebula{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:nebPulse 8s ease-in-out infinite alternate}
+@keyframes nebPulse{0%{opacity:.12;transform:scale(1)}100%{opacity:.22;transform:scale(1.08)}}
+
+/* ===== PARTICLES ===== */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1}
+.pt{position:absolute;opacity:0;animation:ptFloat linear infinite}
+@keyframes ptFloat{0%{transform:translateY(105vh) scale(0);opacity:0}8%{opacity:.7}92%{opacity:.2}100%{transform:translateY(-30px) scale(1);opacity:0}}
+
+/* ===== PRELOADER ===== */
+.preloader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 1s,visibility 1s}
+.preloader.hidden{opacity:0;visibility:hidden}
+.pre-ring{width:80px;height:80px;border:3px solid transparent;border-top-color:var(--pink);border-right-color:var(--lavender);border-radius:50%;animation:spin 1s linear infinite}
+.pre-ring::after{content:'';position:absolute;inset:8px;border:2px solid transparent;border-bottom-color:var(--gold);border-left-color:var(--blue);border-radius:50%;animation:spin 1.5s linear infinite reverse}
+.pre-ring{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pre-text{font-family:'Pinyon Script',cursive;font-size:1.4rem;color:var(--rose);margin-top:25px;animation:fadeIO 2s ease infinite}
+@keyframes fadeIO{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;z-index:2;padding:40px 20px}
+.hero-badge{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:10px;text-transform:uppercase;color:var(--gold);opacity:0;animation:rUp 1s ease 1.8s forwards}
+.hero-title{font-family:'Pinyon Script',cursive;font-size:clamp(3rem,11vw,8rem);background:linear-gradient(135deg,var(--pink),var(--lavender),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0;opacity:0;animation:rUp 1.2s ease 2.1s forwards;filter:drop-shadow(0 0 40px rgba(255,94,158,.2))}
+.hero-sub{font-family:'Satisfy',cursive;font-size:clamp(1.2rem,3vw,2rem);color:var(--rose);opacity:0;animation:rUp 1s ease 2.5s forwards}
+.hero-hearts{margin-top:25px;font-size:1.5rem;letter-spacing:12px;opacity:0;animation:rUp 1s ease 2.9s forwards}
+.hero-arrow{position:absolute;bottom:40px;opacity:0;animation:rUp 1s ease 3.3s forwards,bounce 2.5s ease infinite 3.3s}
+.hero-arrow span{display:block;width:2px;height:45px;background:linear-gradient(to bottom,var(--gold),transparent);margin:0 auto}
+.hero-arrow-text{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:5px;color:var(--gold);margin-top:8px;text-transform:uppercase}
+@keyframes rUp{to{opacity:1;transform:translateY(0)}}
+.hero-badge,.hero-title,.hero-sub,.hero-hearts{transform:translateY(30px)}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+/* ===== DIVIDER ===== */
+.divider{height:3px;margin:0 40px;background:linear-gradient(90deg,transparent,var(--pink),var(--lavender),var(--blue),var(--gold),transparent);border-radius:2px;position:relative;z-index:2;box-shadow:0 0 15px rgba(255,94,158,.15)}
+
+/* ===== SECTION HEADER ===== */
+.sec-hd{text-align:center;padding:90px 30px 40px;position:relative;z-index:2}
+.sec-hd-icon{font-size:2rem}
+.sec-hd-title{font-family:'Pinyon Script',cursive;font-size:clamp(2rem,5vw,3.8rem);background:linear-gradient(135deg,var(--pink),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:8px}
+.sec-hd-sub{font-size:.85rem;color:var(--text2);margin-top:6px;letter-spacing:2px}
+
+/* ===== GALLERY GRID ===== */
+.gallery{max-width:1200px;margin:0 auto;padding:20px 30px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;position:relative;z-index:2}
+
+.g-card{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:20px;overflow:hidden;opacity:0;transform:translateY(60px);transition:all .8s cubic-bezier(.16,1,.3,1);position:relative}
+.g-card.visible{opacity:1;transform:translateY(0)}
+.g-card::before{content:'';position:absolute;inset:-1px;border-radius:20px;z-index:-1;opacity:0;transition:opacity .5s}
+.g-card:hover::before{opacity:1}
+.g-card:hover{transform:translateY(-10px);box-shadow:0 25px 60px rgba(0,0,0,.35)}
+
+.g-card:nth-child(1)::before{background:linear-gradient(135deg,var(--pink),var(--rose))}
+.g-card:nth-child(2)::before{background:linear-gradient(135deg,var(--gold),#e8c87c)}
+.g-card:nth-child(3)::before{background:linear-gradient(135deg,var(--lavender),var(--blue))}
+.g-card:nth-child(4)::before{background:linear-gradient(135deg,var(--rose),var(--peach))}
+.g-card:nth-child(5)::before{background:linear-gradient(135deg,var(--mint),var(--blue))}
+.g-card:nth-child(6)::before{background:linear-gradient(135deg,var(--blue),var(--lavender))}
+
+.g-card-preview{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.g-card:nth-child(1) .g-card-preview{background:linear-gradient(135deg,#1a0a15,#2d1b2e)}
+.g-card:nth-child(2) .g-card-preview{background:linear-gradient(135deg,#0c0c14,#14141f)}
+.g-card:nth-child(3) .g-card-preview{background:linear-gradient(135deg,#050510,#0a0a2e)}
+.g-card:nth-child(4) .g-card-preview{background:linear-gradient(135deg,#f8e8e0,#fce4ec)}
+.g-card:nth-child(5) .g-card-preview{background:linear-gradient(135deg,#0c0c14,#1a1a28)}
+.g-card:nth-child(6) .g-card-preview{background:linear-gradient(135deg,#e8f4fd,#f5e6ff)}
+
+.g-card-emoji{font-size:3.5rem;z-index:1;filter:drop-shadow(0 5px 15px rgba(0,0,0,.3));transition:transform .5s}
+.g-card:hover .g-card-emoji{transform:scale(1.15) rotate(5deg)}
+
+.g-card-theme{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;backdrop-filter:blur(10px)}
+.g-card:nth-child(1) .g-card-theme{background:rgba(255,94,158,.2);color:var(--pink)}
+.g-card:nth-child(2) .g-card-theme{background:rgba(212,165,116,.2);color:var(--gold)}
+.g-card:nth-child(3) .g-card-theme{background:rgba(126,184,255,.2);color:var(--blue)}
+.g-card:nth-child(4) .g-card-theme{background:rgba(212,114,122,.2);color:#d4727a}
+.g-card:nth-child(5) .g-card-theme{background:rgba(212,168,83,.2);color:#d4a853}
+.g-card:nth-child(6) .g-card-theme{background:rgba(197,163,232,.2);color:var(--lavender)}
+
+.g-card-body{padding:22px 25px 25px}
+.g-card-title{font-family:'Satisfy',cursive;font-size:1.5rem;color:var(--text);margin-bottom:6px}
+.g-card-desc{font-size:.8rem;color:var(--text2);line-height:1.7;margin-bottom:15px}
+
+.g-card-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.g-feat{padding:3px 10px;border-radius:12px;font-size:.6rem;font-weight:600;letter-spacing:1px;background:rgba(255,255,255,.04);color:var(--text2);border:1px solid rgba(255,255,255,.06)}
+
+.g-card-btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-family:'Quicksand',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;transition:all .3s;color:#fff}
+.g-card:nth-child(1) .g-card-btn{background:linear-gradient(135deg,var(--pink),var(--rose))}
+.g-card:nth-child(2) .g-card-btn{background:linear-gradient(135deg,var(--gold),#c9a96e)}
+.g-card:nth-child(3) .g-card-btn{background:linear-gradient(135deg,var(--lavender),var(--blue))}
+.g-card:nth-child(4) .g-card-btn{background:linear-gradient(135deg,#d4727a,var(--rose))}
+.g-card:nth-child(5) .g-card-btn{background:linear-gradient(135deg,#d4a853,var(--gold))}
+.g-card:nth-child(6) .g-card-btn{background:linear-gradient(135deg,var(--mint),var(--blue))}
+.g-card-btn:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(0,0,0,.3);filter:brightness(1.1)}
+
+/* ===== IMAGE SHOWCASE ===== */
+.img-showcase{max-width:1200px;margin:0 auto;padding:20px 30px 80px;position:relative;z-index:2}
+.img-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.img-item{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:16px;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.img-item.visible{opacity:1;transform:translateY(0)}
+.img-item:hover{transform:translateY(-6px);box-shadow:0 15px 40px rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)}
+.img-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .5s}
+.img-item:hover .img-thumb{transform:scale(1.05)}
+.img-placeholder{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,rgba(255,94,158,.05),rgba(126,184,255,.05))}
+.img-info{padding:15px 18px}
+.img-name{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:3px;word-break:break-all}
+.img-size{font-size:.65rem;color:var(--text2)}
+
+/* ===== FINAL MESSAGE ===== */
+.final{min-height:50vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:80px 30px;position:relative;z-index:2}
+.final::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,94,158,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.final-emoji{font-size:3rem;opacity:0;transition:all 1s ease}
+.final-emoji.visible{opacity:1}
+.final-title{font-family:'Pinyon Script',cursive;font-size:clamp(2.5rem,7vw,5rem);background:linear-gradient(135deg,var(--pink),var(--lavender),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:15px 0;opacity:0;transform:scale(.85);transition:all 1.5s cubic-bezier(.16,1,.3,1)}
+.final-title.visible{opacity:1;transform:scale(1)}
+.final-sub{font-family:'Satisfy',cursive;font-size:1.2rem;color:var(--gold);opacity:0;transition:all 1s ease .4s}
+.final-sub.visible{opacity:1}
+
+.footer{text-align:center;padding:30px;position:relative;z-index:2;font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:3px}
+
+/* ===== CLICK FX ===== */
+.click-burst{position:fixed;pointer-events:none;z-index:9999;width:5px;height:5px;border-radius:50%;animation:burst .7s ease-out forwards}
+@keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--bx),var(--by)) scale(0);opacity:0}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .gallery{grid-template-columns:1fr;max-width:420px}
+  .img-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+}
+@media(max-width:500px){
+  .gallery,.img-grid{padding:20px 15px}
+  .g-card-body{padding:18px 18px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="pre-ring"></div>
+  <p class="pre-text">Opening our love story...</p>
+</div>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Nebulae -->
+<div class="nebula" style="width:450px;height:450px;background:radial-gradient(circle,rgba(255,94,158,.12),transparent);top:5%;left:15%"></div>
+<div class="nebula" style="width:400px;height:400px;background:radial-gradient(circle,rgba(126,184,255,.1),transparent);top:40%;right:5%;animation-delay:3s"></div>
+<div class="nebula" style="width:350px;height:350px;background:radial-gradient(circle,rgba(197,163,232,.1),transparent);bottom:5%;left:35%;animation-delay:5s"></div>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <p class="hero-badge">✦ A Celebration Of Love ✦</p>
+  <h1 class="hero-title">Happy Birthday</h1>
+  <p class="hero-sub">To the love of my life</p>
+  <p class="hero-hearts">💖 ✨ 💕 ✨ 💖</p>
+  <div class="hero-arrow">
+    <span></span>
+    <p class="hero-arrow-text">Explore</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== MEMORY SITES ===== -->
+<div class="sec-hd">
+  <p class="sec-hd-icon">🎨</p>
+  <h2 class="sec-hd-title">Our Memory Experiences</h2>
+  <p class="sec-hd-sub">6 beautiful worlds crafted just for you — tap to explore each one</p>
+</div>
+
+<section class="gallery" id="gallery">
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Romantic</span>
+      <span class="g-card-emoji">💕</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Floating Memories</h3>
+      <p class="g-card-desc">Dreamy floating hearts, parallax scrolling, sparkle cursor trail & firework photo reveals</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Particles</span>
+        <span class="g-feat">✦ Parallax</span>
+        <span class="g-feat">✦ Photo Upload</span>
+        <span class="g-feat">✦ Timeline</span>
+      </div>
+      <a href="site1-floating-memories.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Cinematic</span>
+      <span class="g-card-emoji">🎬</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Cinematic Film Strip</h3>
+      <p class="g-card-desc">Film grain overlay, 3-2-1 countdown intro, polaroid gallery with tape effect & floating embers</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Film Grain</span>
+        <span class="g-feat">✦ Countdown</span>
+        <span class="g-feat">✦ Polaroids</span>
+        <span class="g-feat">✦ Scenes</span>
+      </div>
+      <a href="site2-cinematic-film.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Futuristic</span>
+      <span class="g-card-emoji">🌌</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Neon Galaxy</h3>
+      <p class="g-card-desc">200+ star field, shooting stars, neon glow cards, terminal love message & heart constellation</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Starfield</span>
+        <span class="g-feat">✦ Neon Glow</span>
+        <span class="g-feat">✦ Terminal</span>
+        <span class="g-feat">✦ Constellation</span>
+      </div>
+      <a href="site3-neon-galaxy-preview.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Floral</span>
+      <span class="g-card-emoji">🌸</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Rose Garden Timeline</h3>
+      <p class="g-card-desc">Falling petals, watercolor backgrounds, 8-memory photo timeline & love letter with scroll reveals</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Petals</span>
+        <span class="g-feat">✦ Watercolor</span>
+        <span class="g-feat">✦ 8 Memories</span>
+        <span class="g-feat">✦ Love Letter</span>
+      </div>
+      <a href="site1-rose-garden.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Luxury</span>
+      <span class="g-card-emoji">👑</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Midnight Luxe</h3>
+      <p class="g-card-desc">Gold particles, diamond markers, luxury cards, auto-scroll love strip & elegant dark theme</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Gold Theme</span>
+        <span class="g-feat">✦ Diamonds</span>
+        <span class="g-feat">✦ Auto Scroll</span>
+        <span class="g-feat">✦ 8 Memories</span>
+      </div>
+      <a href="site2-midnight-luxe.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Dreamy</span>
+      <span class="g-card-emoji">☁️</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Dreamy Pastel Cloud</h3>
+      <p class="g-card-desc">Rainbow timeline, floating clouds & butterflies, pastel memory cards & confetti click effects</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Rainbow</span>
+        <span class="g-feat">✦ Butterflies</span>
+        <span class="g-feat">✦ Pastel</span>
+        <span class="g-feat">✦ Confetti</span>
+      </div>
+      <a href="site3-dreamy-pastel.html" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== IMAGE GALLERY ===== -->
+<div class="sec-hd">
+  <p class="sec-hd-icon">📸</p>
+  <h2 class="sec-hd-title">Artistic Creations</h2>
+  <p class="sec-hd-sub">Beautiful art made from our photos</p>
+</div>
+
+<section class="img-showcase">
+  <div class="img-grid" id="imgGrid">
+
+    <div class="img-item">
+      <img class="img-thumb" src="girlfriend_enhanced_HD.jpeg" alt="Enhanced HD Photo" onerror="this.parentElement.querySelector('.img-placeholder')&&(this.style.display='none')" />
+      <div class="img-info">
+        <p class="img-name">✨ Enhanced HD Portrait</p>
+        <p class="img-size">girlfriend_enhanced_HD.jpeg</p>
+      </div>
+    </div>
+
+    <div class="img-item">
+      <img class="img-thumb" src="girlfriend_birthday_sketch.png" alt="Birthday Sketch" onerror="this.style.display='none'" />
+      <div class="img-info">
+        <p class="img-name">🎨 Birthday Sketch Art</p>
+        <p class="img-size">girlfriend_birthday_sketch.png</p>
+      </div>
+    </div>
+
+    <div class="img-item">
+      <img class="img-thumb" src="cartoon_output.jpg" alt="Cartoon Style" onerror="this.style.display='none'" />
+      <div class="img-info">
+        <p class="img-name">🖌️ Cartoon Style</p>
+        <p class="img-size">cartoon_output.jpg</p>
+      </div>
+    </div>
+
+    <div class="img-item">
+      <img class="img-thumb" src="sketch_output.jpg" alt="Sketch Output" onerror="this.style.display='none'" />
+      <div class="img-info">
+        <p class="img-name">✏️ Pencil Sketch</p>
+        <p class="img-size">sketch_output.jpg</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== ADVANCED ART PAGES ===== -->
+<div class="sec-hd">
+  <p class="sec-hd-icon">🖼️</p>
+  <h2 class="sec-hd-title">Interactive Art Pages</h2>
+  <p class="sec-hd-sub">Advanced animated drawing experiences</p>
+</div>
+
+<section class="gallery" id="artGallery" style="padding-bottom:60px">
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+      <span class="g-card-theme">Art</span>
+      <span class="g-card-emoji">✏️</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Edge Drawing</h3>
+      <p class="g-card-desc">Interactive edge-detection based line drawing animation</p>
+      <a href="Level1_Edge_Drawing.html" class="g-card-btn" style="background:linear-gradient(135deg,#667eea,#764ba2)">View Art →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#0f2027,#203a43)">
+      <span class="g-card-theme">SVG</span>
+      <span class="g-card-emoji">🖊️</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">SVG Strokes</h3>
+      <p class="g-card-desc">Beautiful SVG stroke animation with artistic rendering</p>
+      <a href="Level2_SVG_Strokes.html" class="g-card-btn" style="background:linear-gradient(135deg,#11998e,#38ef7d)">View Art →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#1f1c2c,#928dab)">
+      <span class="g-card-theme">HD</span>
+      <span class="g-card-emoji">💎</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">HD Enhanced Art</h3>
+      <p class="g-card-desc">Ultra high-definition enhanced artistic portrait rendering</p>
+      <a href="Level3_HD_Enhanced.html" class="g-card-btn" style="background:linear-gradient(135deg,#ee9ca7,#ffdde1);color:#333">View Art →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#2c3e50,#4ca1af)">
+      <span class="g-card-theme">Realistic</span>
+      <span class="g-card-emoji">🎭</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Realistic Sketch</h3>
+      <p class="g-card-desc">Photo-realistic pencil sketch with natural shading</p>
+      <a href="Level3_Realistic_Sketch.html" class="g-card-btn" style="background:linear-gradient(135deg,#4ca1af,#2c3e50)">View Art →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#200122,#6f0000)">
+      <span class="g-card-theme">Final</span>
+      <span class="g-card-emoji">🏆</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Birthday Final Complete</h3>
+      <p class="g-card-desc">The complete birthday masterpiece with all effects combined</p>
+      <a href="Birthday_Final_Complete.html" class="g-card-btn" style="background:linear-gradient(135deg,#c31432,#240b36)">View Art →</a>
+    </div>
+  </div>
+
+  <div class="g-card">
+    <div class="g-card-preview" style="background:linear-gradient(135deg,#141e30,#243b55)">
+      <span class="g-card-theme">Ultra</span>
+      <span class="g-card-emoji">⚡</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Ultra HD Birthday</h3>
+      <p class="g-card-desc">Ultra-high definition birthday art with maximum quality</p>
+      <a href="Birthday_ULTRA_HD.html" class="g-card-btn" style="background:linear-gradient(135deg,#f12711,#f5af19)">View Art →</a>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FINALE ===== -->
+<section class="final">
+  <div class="final-emoji" id="fEmoji">🎂</div>
+  <h2 class="final-title" id="fTitle">Happy Birthday, My Everything!</h2>
+  <p class="final-sub" id="fSub">Every pixel here is made with love, just for you ♥</p>
+</section>
+
+<footer class="footer">MADE WITH ♥ — HAPPY BIRTHDAY 2026</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Preloader
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),1800)});
+
+// Stars
+(function(){const c=document.getElementById('stars');for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${Math.random()*3+1}s;animation-delay:${Math.random()*3}s;opacity:${Math.random()*.4+.15}`;c.appendChild(s)}})();
+
+// Particles
+(function(){const c=document.getElementById('particles');const sym=['♥','✦','✧','·','♡'];for(let i=0;i<25;i++){const p=document.createElement('div');p.className='pt';p.textContent=sym[Math.floor(Math.random()*sym.length)];p.style.cssText=`left:${Math.random()*100}%;font-size:${Math.random()*12+6}px;color:${['var(--pink)','var(--gold)','var(--lavender)','var(--blue)','var(--rose)'][Math.floor(Math.random()*5)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s`;c.appendChild(p)}})();
+
+// Scroll observer
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.g-card,.img-item,#fEmoji,#fTitle,#fSub').forEach(el=>obs.observe(el));
+
+// Stagger cards
+document.querySelectorAll('.g-card').forEach((c,i)=>{c.style.transitionDelay=`${i*.1}s`});
+document.querySelectorAll('.img-item').forEach((c,i)=>{c.style.transitionDelay=`${i*.1}s`});
+// Also observe art gallery cards
+document.querySelectorAll('#artGallery .g-card').forEach(el=>obs.observe(el));
+
+// Click burst
+document.addEventListener('click',e=>{if(e.target.closest('a'))return;const colors=['var(--pink)','var(--gold)','var(--lavender)','var(--blue)','var(--mint)','#fff'];for(let i=0;i<10;i++){const p=document.createElement('div');p.className='click-burst';const angle=(Math.PI*2/10)*i;const dist=30+Math.random()*40;p.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;background:${colors[Math.floor(Math.random()*colors.length)]};box-shadow:0 0 6px currentColor;--bx:${Math.cos(angle)*dist}px;--by:${Math.sin(angle)*dist}px`;document.body.appendChild(p);setTimeout(()=>p.remove(),700)}});
+
+// Parallax hero
+window.addEventListener('scroll',()=>{const y=window.scrollY;if(y<window.innerHeight)document.querySelector('.hero').style.transform=`translateY(${y*.25}px)`});
+</script>
+</body>
+</html>
