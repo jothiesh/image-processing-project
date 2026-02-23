@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎬 Our Love Story - Happy Birthday!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0a0a0a;
+  --charcoal: #1a1a1a;
+  --silver: #c0c0c0;
+  --warm-white: #f5efe6;
+  --amber: #e8a87c;
+  --rose-gold: #b76e79;
+  --film-border: #2a2a2a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--noir);
+  color: var(--warm-white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ===== FILM GRAIN OVERLAY ===== */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: grainShift 0.3s steps(3) infinite;
+}
+@keyframes grainShift {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-2px, 1px); }
+  66% { transform: translate(1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ===== CINEMATIC BARS ===== */
+.cinema-bar {
+  position: fixed;
+  left: 0; right: 0;
+  height: 60px;
+  background: #000;
+  z-index: 9991;
+  pointer-events: none;
+}
+.cinema-bar.top { top: 0; }
+.cinema-bar.bottom { bottom: 0; }
+
+/* ===== INTRO SEQUENCE ===== */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 1.5s ease;
+}
+.intro-overlay.hidden { opacity: 0; pointer-events: none; }
+.intro-text {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1rem;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  color: var(--silver);
+  opacity: 0;
+  animation: introFade 2s ease 0.5s forwards;
+}
+.intro-count {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--amber);
+  margin-top: 20px;
+  opacity: 0;
+}
+@keyframes introFade { to { opacity: 1; } }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  padding: 80px 40px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(232,168,124,0.08) 0%, transparent 60%);
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 1s ease 3.5s forwards;
+}
+.hero-main {
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(4rem, 12vw, 10rem);
+  color: var(--warm-white);
+  text-align: center;
+  margin: 20px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 1.2s ease 3.8s forwards;
+  text-shadow: 0 0 80px rgba(232,168,124,0.2);
+}
+.hero-sub {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.1rem;
+  letter-spacing: 6px;
+  font-style: italic;
+  color: var(--rose-gold);
+  opacity: 0;
+  animation: slideUp 1s ease 4.3s forwards;
+}
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== FILM STRIP DIVIDER ===== */
+.film-strip {
+  display: flex;
+  overflow: hidden;
+  padding: 20px 0;
+  background: var(--charcoal);
+  border-top: 3px solid var(--film-border);
+  border-bottom: 3px solid var(--film-border);
+  position: relative;
+}
+.film-strip::before, .film-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 30px;
+  z-index: 2;
+}
+.film-strip::before { left: 0; background: linear-gradient(to right, var(--noir), transparent); }
+.film-strip::after { right: 0; background: linear-gradient(to left, var(--noir), transparent); }
+
+.film-frames {
+  display: flex;
+  gap: 4px;
+  animation: filmScroll 30s linear infinite;
+}
+@keyframes filmScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.film-frame {
+  width: 80px; height: 60px;
+  background: var(--film-border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.film-perf {
+  position: absolute;
+  width: 8px; height: 6px;
+  background: var(--noir);
+  border-radius: 1px;
+}
+.film-perf.top { top: -10px; }
+.film-perf.bottom { bottom: -10px; }
+
+/* ===== POLAROID GALLERY ===== */
+.gallery-section {
+  padding: 120px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.section-num {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 0.7rem;
+  letter-spacing: 8px;
+  color: var(--amber);
+}
+.section-heading {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.polaroid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  perspective: 1000px;
+}
+.polaroid {
+  background: var(--warm-white);
+  padding: 15px 15px 60px;
+  border-radius: 2px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  transform: rotate(var(--rotate, 0deg));
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  cursor: pointer;
+  position: relative;
+}
+.polaroid:nth-child(1) { --rotate: -3deg; }
+.polaroid:nth-child(2) { --rotate: 2deg; }
+.polaroid:nth-child(3) { --rotate: -1.5deg; }
+.polaroid:nth-child(4) { --rotate: 3deg; }
+.polaroid:nth-child(5) { --rotate: -2deg; }
+.polaroid:nth-child(6) { --rotate: 1deg; }
+
+.polaroid.visible { opacity: 1; }
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-15px) scale(1.05);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 30px rgba(232,168,124,0.1);
+}
+
+.polaroid-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden;
+  position: relative;
+}
+.polaroid-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: none;
+  filter: sepia(0.1) contrast(1.05);
+}
+.polaroid-photo img.visible { display: block; }
+
+.polaroid-upload {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--silver);
+  transition: all 0.3s;
+  z-index: 2;
+}
+.polaroid-upload:hover { color: var(--amber); }
+.polaroid-upload.hidden { display: none; }
+.polaroid-upload input { display: none; }
+.polaroid-upload .cam { font-size: 2rem; }
+.polaroid-upload .label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; }
+
+.polaroid-caption {
+  font-family: 'Sacramento', cursive;
+  font-size: 1.3rem;
+  color: #333;
+  text-align: center;
+  margin-top: 15px;
+}
+.polaroid-date {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: #999;
+  text-align: center;
+  text-transform: uppercase;
+}
+.tape {
+  position: absolute;
+  width: 60px; height: 20px;
+  background: rgba(255,235,200,0.6);
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rotate, -2deg));
+  z-index: 3;
+}
+.polaroid:nth-child(even) .tape { --tape-rotate: 3deg; }
+
+/* ===== QUOTE SECTION ===== */
+.quote-section {
+  padding: 120px 40px;
+  text-align: center;
+  position: relative;
+}
+.quote-section::before {
+  content: '"';
+  font-family: 'Bodoni Moda', serif;
+  font-size: 15rem;
+  color: rgba(232,168,124,0.06);
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+}
+.quote-text {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  font-style: italic;
+  line-height: 2;
+  max-width: 700px;
+  margin: 0 auto;
+  color: rgba(245,239,230,0.85);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s ease;
+}
+.quote-text.visible { opacity: 1; transform: translateY(0); }
+.quote-author {
+  font-family: 'Sacramento', cursive;
+  font-size: 2rem;
+  color: var(--amber);
+  margin-top: 30px;
+  opacity: 0;
+  transition: all 1s ease 0.4s;
+}
+.quote-author.visible { opacity: 1; }
+
+/* ===== SCENE CARDS ===== */
+.scenes {
+  padding: 80px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.scene {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 100px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scene:nth-child(even) { flex-direction: row-reverse; }
+.scene.visible { opacity: 1; transform: translateY(0); }
+
+.scene-number {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 8rem;
+  font-weight: 700;
+  color: rgba(232,168,124,0.08);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.scene-content { flex: 1; }
+.scene-label {
+  font-size: 0.65rem;
+  letter-spacing: 6px;
+  color: var(--amber);
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.scene-text {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: rgba(245,239,230,0.8);
+}
+.scene-line {
+  width: 40px; height: 1px;
+  background: var(--amber);
+  margin-top: 20px;
+}
+
+/* ===== FINALE ===== */
+.finale {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+}
+.finale::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,168,124,0.06) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.finale-title {
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(3rem, 8vw, 7rem);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.finale-title.visible { opacity: 1; transform: scale(1); }
+.finale-year {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 1rem;
+  letter-spacing: 10px;
+  color: var(--amber);
+  margin-top: 20px;
+  opacity: 0;
+  transition: all 1s ease 0.5s;
+}
+.finale-year.visible { opacity: 1; }
+.finale-hearts {
+  margin-top: 40px;
+  font-size: 2rem;
+  opacity: 0;
+  transition: all 1s ease 0.8s;
+}
+.finale-hearts.visible { opacity: 1; }
+
+/* ===== FLOATING EMBERS ===== */
+.ember {
+  position: fixed;
+  width: 3px; height: 3px;
+  background: var(--amber);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: emberFloat linear infinite;
+  box-shadow: 0 0 6px var(--amber);
+}
+@keyframes emberFloat {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  5% { opacity: 0.8; }
+  95% { opacity: 0.2; }
+  100% { transform: translateY(-50px) translateX(var(--drift)); opacity: 0; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .cinema-bar { height: 30px; }
+  .polaroid-grid { grid-template-columns: 1fr; max-width: 350px; margin: 0 auto; }
+  .scene, .scene:nth-child(even) {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  .scene-number { font-size: 4rem; }
+}
+
+/* ===== TYPEWRITER ===== */
+.typewriter { display: inline; }
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--amber);
+  margin-left: 2px;
+  animation: blink 0.8s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<div class="film-grain"></div>
+<div class="cinema-bar top"></div>
+<div class="cinema-bar bottom"></div>
+
+<!-- Intro -->
+<div class="intro-overlay" id="intro">
+  <p class="intro-text">A Film By Us</p>
+  <div class="intro-count" id="countdown"></div>
+</div>
+
+<!-- Embers -->
+<div id="embers"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="hero-eyebrow">Presenting</p>
+  <h1 class="hero-main">Happy Birthday</h1>
+  <p class="hero-sub">A story written in the stars</p>
+</section>
+
+<!-- Film Strip -->
+<div class="film-strip">
+  <div class="film-frames" id="filmFrames"></div>
+</div>
+
+<!-- Gallery -->
+<section class="gallery-section">
+  <div class="section-header">
+    <p class="section-num">— CHAPTER 01 —</p>
+    <h2 class="section-heading">Our Favorite Frames</h2>
+  </div>
+  <div class="polaroid-grid" id="polaroidGrid"></div>
+</section>
+
+<!-- Quote -->
+<section class="quote-section">
+  <p class="quote-text" id="quoteText">
+    In a world full of temporary things, you are a perpetual feeling.
+    Every day with you is my favorite day. So today is my new favorite day.
+  </p>
+  <p class="quote-author" id="quoteAuthor">— Forever Yours</p>
+</section>
+
+<!-- Scenes -->
+<section class="scenes" id="scenes">
+  <div class="scene">
+    <div class="scene-number">01</div>
+    <div class="scene-content">
+      <p class="scene-label">The Meet-Cute</p>
+      <p class="scene-text">Like every great film, our story started with a moment that changed everything. One look, one smile, and the world shifted.</p>
+      <div class="scene-line"></div>
+    </div>
+  </div>
+  <div class="scene">
+    <div class="scene-number">02</div>
+    <div class="scene-content">
+      <p class="scene-label">The Rising Action</p>
+      <p class="scene-text">Late-night talks, shared dreams, stolen glances. Every chapter with you was more beautiful than the last.</p>
+      <div class="scene-line"></div>
+    </div>
+  </div>
+  <div class="scene">
+    <div class="scene-number">03</div>
+    <div class="scene-content">
+      <p class="scene-label">The Climax</p>
+      <p class="scene-text">Falling completely, irrevocably in love with you — the plot twist I never saw coming, and the best thing that ever happened to me.</p>
+      <div class="scene-line"></div>
+    </div>
+  </div>
+  <div class="scene">
+    <div class="scene-number">∞</div>
+    <div class="scene-content">
+      <p class="scene-label">To Be Continued...</p>
+      <p class="scene-text">Our story has no ending. Every birthday is just another beautiful chapter. Happy Birthday, my leading lady.</p>
+      <div class="scene-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Film Strip -->
+<div class="film-strip">
+  <div class="film-frames" id="filmFrames2"></div>
+</div>
+
+<!-- Finale -->
+<section class="finale">
+  <h2 class="finale-title" id="finaleTitle">Happy Birthday, Beautiful</h2>
+  <p class="finale-year" id="finaleYear">— 2 0 2 6 —</p>
+  <div class="finale-hearts" id="finaleHearts">♥ ♥ ♥</div>
+</section>
+
+<script>
+// ===== CONFIG =====
+const PHOTOS = [
+  { emoji: "📸", caption: "The beginning", date: "Chapter 1" },
+  { emoji: "🌙", caption: "Late night adventures", date: "Chapter 2" },
+  { emoji: "☀️", caption: "Sun-kissed memories", date: "Chapter 3" },
+  { emoji: "🎵", caption: "Our song playing", date: "Chapter 4" },
+  { emoji: "🌊", caption: "By the water", date: "Chapter 5" },
+  { emoji: "🌟", caption: "The best birthday ever", date: "Chapter 6" },
+];
+
+// ===== INTRO COUNTDOWN =====
+const countEl = document.getElementById('countdown');
+let count = 3;
+function runCountdown() {
+  countEl.style.opacity = 1;
+  countEl.textContent = count;
+  countEl.style.animation = 'none';
+  countEl.offsetHeight;
+  countEl.style.animation = 'introFade 0.8s ease forwards';
+  count--;
+  if (count >= 0) {
+    setTimeout(runCountdown, 1000);
+  } else {
+    setTimeout(() => document.getElementById('intro').classList.add('hidden'), 500);
+  }
+}
+setTimeout(runCountdown, 800);
+
+// ===== EMBERS =====
+function createEmbers() {
+  const container = document.getElementById('embers');
+  for (let i = 0; i < 25; i++) {
+    const e = document.createElement('div');
+    e.className = 'ember';
+    e.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${Math.random() * 3 + 2}px;
+      height: ${Math.random() * 3 + 2}px;
+      animation-duration: ${Math.random() * 12 + 8}s;
+      animation-delay: ${Math.random() * 8}s;
+      --drift: ${(Math.random() - 0.5) * 100}px;
+    `;
+    container.appendChild(e);
+  }
+}
+createEmbers();
+
+// ===== FILM FRAMES =====
+function buildFilmStrip(containerId) {
+  const container = document.getElementById(containerId);
+  const emojis = ['♥','✦','☆','♡','✧','★','♥','✦','☆','♡','✧','★'];
+  for (let i = 0; i < 40; i++) {
+    const frame = document.createElement('div');
+    frame.className = 'film-frame';
+    frame.textContent = emojis[i % emojis.length];
+    container.appendChild(frame);
+  }
+}
+buildFilmStrip('filmFrames');
+buildFilmStrip('filmFrames2');
+
+// ===== POLAROIDS =====
+function buildPolaroids() {
+  const grid = document.getElementById('polaroidGrid');
+  PHOTOS.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'polaroid';
+    div.innerHTML = `
+      <div class="tape"></div>
+      <div class="polaroid-photo">
+        <span>${p.emoji}</span>
+        <img id="pimg-${i}" />
+        <label class="polaroid-upload" id="pzone-${i}">
+          <span class="cam">📷</span>
+          <span class="label">Add Photo</span>
+          <input type="file" accept="image/*" onchange="uploadPolaroid(event, ${i})" />
+        </label>
+      </div>
+      <p class="polaroid-caption">${p.caption}</p>
+      <p class="polaroid-date">${p.date}</p>
+    `;
+    grid.appendChild(div);
+  });
+}
+buildPolaroids();
+
+function uploadPolaroid(e, idx) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = document.getElementById(`pimg-${idx}`);
+    img.src = ev.target.result;
+    img.classList.add('visible');
+    document.getElementById(`pzone-${idx}`).classList.add('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== SCROLL OBSERVER =====
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.polaroid, .scene, .quote-text, .quote-author, .finale-title, .finale-year, .finale-hearts')
+  .forEach(el => obs.observe(el));
+
+// ===== CLICK SPARKLE =====
+document.addEventListener('click', (e) => {
+  for (let i = 0; i < 8; i++) {
+    const s = document.createElement('div');
+    s.style.cssText = `
+      position: fixed;
+      left: ${e.clientX}px;
+      top: ${e.clientY}px;
+      width: 4px; height: 4px;
+      background: ${['#e8a87c','#b76e79','#f5efe6','#c0c0c0'][Math.floor(Math.random()*4)]};
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9995;
+      animation: sparkBurst 0.6s ease-out forwards;
+    `;
+    const angle = (Math.PI * 2 / 8) * i;
+    const dist = 30 + Math.random() * 30;
+    s.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
+    s.style.setProperty('--sy', Math.sin(angle) * dist + 'px');
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 700);
+  }
+});
+
+// Add dynamic keyframes
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes sparkBurst {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
