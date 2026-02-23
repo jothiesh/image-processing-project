@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💝 Happy Birthday - Our Dreamy Memories</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #e8f4fd;
+  --cloud: #ffffff;
+  --pink: #f8a4c8;
+  --lavender: #c5a3e8;
+  --mint: #a8e6cf;
+  --peach: #ffd3b6;
+  --baby-blue: #a8d8ea;
+  --coral: #ff8a80;
+  --text: #5a4a6a;
+  --text-light: #8a7a9a;
+  --warm: #fff5f5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--sky);
+  color: var(--text);
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== GRADIENT MESH BG ===== */
+.mesh-bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(248,164,200,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(168,214,234,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(197,163,232,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 70%, rgba(168,230,207,0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #e8f4fd 0%, #f5e6ff 50%, #ffeef5 100%);
+}
+
+/* ===== FLOATING CLOUDS ===== */
+.clouds { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.cloud {
+  position: absolute; opacity: 0.4;
+  animation: cloudDrift linear infinite;
+}
+.cloud-shape {
+  background: white; border-radius: 100px;
+  filter: blur(1px);
+  position: relative;
+}
+.cloud-shape::before, .cloud-shape::after {
+  content: ''; position: absolute; background: white; border-radius: 50%;
+}
+@keyframes cloudDrift {
+  0% { transform: translateX(-300px); }
+  100% { transform: translateX(calc(100vw + 300px)); }
+}
+
+/* ===== BUTTERFLIES ===== */
+.butterfly {
+  position: fixed; pointer-events: none; z-index: 1;
+  font-size: 1.5rem; opacity: 0;
+  animation: butterflyFly linear infinite;
+}
+@keyframes butterflyFly {
+  0% { transform: translate(-50px, 50vh) rotate(0deg); opacity: 0; }
+  5% { opacity: 0.7; }
+  25% { transform: translate(25vw, 30vh) rotate(15deg); }
+  50% { transform: translate(50vw, 60vh) rotate(-10deg); }
+  75% { transform: translate(75vw, 25vh) rotate(20deg); }
+  95% { opacity: 0.5; }
+  100% { transform: translate(110vw, 45vh) rotate(0deg); opacity: 0; }
+}
+
+/* ===== PRELOADER ===== */
+.preloader {
+  position: fixed; inset: 0; z-index: 10000;
+  background: linear-gradient(135deg, #ffeef5, #e8f4fd, #f5e6ff);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  transition: opacity 1s ease, visibility 1s;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; }
+.pre-bounce {
+  display: flex; gap: 8px;
+}
+.pre-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  animation: preBounce 1.4s ease-in-out infinite;
+}
+.pre-dot:nth-child(1) { background: var(--pink); animation-delay: 0s; }
+.pre-dot:nth-child(2) { background: var(--lavender); animation-delay: 0.2s; }
+.pre-dot:nth-child(3) { background: var(--mint); animation-delay: 0.4s; }
+.pre-dot:nth-child(4) { background: var(--peach); animation-delay: 0.6s; }
+@keyframes preBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.pre-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem; color: var(--text);
+  margin-top: 25px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center; position: relative; z-index: 2; padding: 40px;
+}
+.hero-emoji {
+  font-size: 4rem;
+  opacity: 0; animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards;
+}
+.hero-title {
+  font-family: 'Satisfy', cursive;
+  font-size: clamp(3rem, 10vw, 7rem);
+  background: linear-gradient(135deg, var(--pink), var(--lavender), var(--baby-blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin: 15px 0;
+  opacity: 0; animation: popIn 1s ease 2.3s forwards;
+  filter: drop-shadow(0 4px 20px rgba(248,164,200,0.3));
+}
+.hero-sub {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: var(--text-light);
+  opacity: 0; animation: popIn 0.8s ease 2.7s forwards;
+}
+.hero-stars {
+  margin-top: 20px; font-size: 1.5rem; letter-spacing: 15px;
+  opacity: 0; animation: popIn 0.8s ease 3.1s forwards;
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.hero-scroll {
+  position: absolute; bottom: 40px;
+  opacity: 0; animation: popIn 0.8s ease 3.5s forwards, softBounce 2.5s ease infinite 3.5s;
+}
+.hero-scroll-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--pink); margin: 0 auto 8px;
+  animation: scrollPulse 1.5s ease infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.6)} }
+.hero-scroll-text {
+  font-size: 0.7rem; letter-spacing: 4px; color: var(--text-light);
+  text-transform: uppercase;
+}
+@keyframes softBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* ===== RAINBOW DIVIDER ===== */
+.rainbow-div {
+  height: 4px; margin: 0 60px;
+  background: linear-gradient(90deg, var(--pink), var(--peach), #ffd700, var(--mint), var(--baby-blue), var(--lavender), var(--pink));
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation: rainbowShift 4s linear infinite;
+  position: relative; z-index: 2;
+}
+@keyframes rainbowShift { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+
+/* ===== SECTION HEADER ===== */
+.sec-head {
+  text-align: center; padding: 80px 40px 40px; position: relative; z-index: 2;
+}
+.sec-head-emoji { font-size: 2rem; }
+.sec-head-title {
+  font-family: 'Satisfy', cursive;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-top: 10px;
+}
+.sec-head-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem; color: var(--text-light); margin-top: 5px;
+}
+
+/* ===== PASTEL TIMELINE ===== */
+.p-timeline {
+  max-width: 1100px; margin: 0 auto; padding: 40px 40px 100px;
+  position: relative; z-index: 2;
+}
+.p-timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 4px; border-radius: 2px;
+  background: linear-gradient(to bottom, var(--pink), var(--lavender), var(--mint), var(--baby-blue), var(--peach));
+  transform: translateX(-50%);
+}
+
+.p-item {
+  display: flex; align-items: flex-start; margin-bottom: 100px;
+  position: relative;
+  opacity: 0; transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.p-item.visible { opacity: 1; transform: translateY(0); }
+.p-item:nth-child(even) { flex-direction: row-reverse; }
+
+.p-dot {
+  position: absolute; left: 50%; top: 25px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: all 0.5s ease;
+}
+.p-item:nth-child(1) .p-dot { background: var(--pink); }
+.p-item:nth-child(2) .p-dot { background: var(--lavender); }
+.p-item:nth-child(3) .p-dot { background: var(--mint); }
+.p-item:nth-child(4) .p-dot { background: var(--baby-blue); }
+.p-item:nth-child(5) .p-dot { background: var(--peach); }
+.p-item:nth-child(6) .p-dot { background: var(--pink); }
+.p-item:nth-child(7) .p-dot { background: var(--lavender); }
+.p-item:nth-child(8) .p-dot { background: var(--mint); }
+
+.p-item.visible .p-dot {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+}
+
+.p-photo-side { width: 45%; padding: 0 25px; }
+.p-text-side { width: 45%; padding: 0 25px; padding-top: 15px; }
+
+.p-photo-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  transition: all 0.5s ease;
+  position: relative;
+}
+.p-photo-card:hover {
+  transform: translateY(-8px) rotate(0deg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+.p-photo-card::before {
+  content: ''; position: absolute; inset: -2px;
+  border-radius: 22px; z-index: -1;
+  opacity: 0; transition: opacity 0.5s;
+}
+.p-photo-card:hover::before { opacity: 1; }
+.p-item:nth-child(1) .p-photo-card::before { background: linear-gradient(135deg, var(--pink), var(--peach)); }
+.p-item:nth-child(2) .p-photo-card::before { background: linear-gradient(135deg, var(--lavender), var(--pink)); }
+.p-item:nth-child(3) .p-photo-card::before { background: linear-gradient(135deg, var(--mint), var(--baby-blue)); }
+.p-item:nth-child(4) .p-photo-card::before { background: linear-gradient(135deg, var(--baby-blue), var(--lavender)); }
+.p-item:nth-child(5) .p-photo-card::before { background: linear-gradient(135deg, var(--peach), var(--pink)); }
+.p-item:nth-child(6) .p-photo-card::before { background: linear-gradient(135deg, var(--pink), var(--lavender)); }
+.p-item:nth-child(7) .p-photo-card::before { background: linear-gradient(135deg, var(--lavender), var(--mint)); }
+.p-item:nth-child(8) .p-photo-card::before { background: linear-gradient(135deg, var(--mint), var(--peach)); }
+
+.p-photo-area {
+  width: 100%; aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; position: relative; overflow: hidden;
+}
+.p-item:nth-child(1) .p-photo-area { background: linear-gradient(135deg, #ffeef5, #ffe0eb); }
+.p-item:nth-child(2) .p-photo-area { background: linear-gradient(135deg, #f0e6ff, #e6d5ff); }
+.p-item:nth-child(3) .p-photo-area { background: linear-gradient(135deg, #e6fff0, #d5ffe6); }
+.p-item:nth-child(4) .p-photo-area { background: linear-gradient(135deg, #e6f5ff, #d5eeff); }
+.p-item:nth-child(5) .p-photo-area { background: linear-gradient(135deg, #fff0e6, #ffe6d5); }
+.p-item:nth-child(6) .p-photo-area { background: linear-gradient(135deg, #ffeef5, #ffe0eb); }
+.p-item:nth-child(7) .p-photo-area { background: linear-gradient(135deg, #f0e6ff, #e6d5ff); }
+.p-item:nth-child(8) .p-photo-area { background: linear-gradient(135deg, #e6fff0, #d5ffe6); }
+
+.p-photo-area img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0; display: none;
+  border-radius: 0;
+}
+.p-photo-area img.visible { display: block; }
+
+.p-photo-label {
+  padding: 12px 20px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem; color: var(--text);
+  text-align: center;
+}
+
+.p-text-badge {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 0.65rem;
+  font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: white; margin-bottom: 10px;
+}
+.p-item:nth-child(1) .p-text-badge { background: var(--pink); }
+.p-item:nth-child(2) .p-text-badge { background: var(--lavender); }
+.p-item:nth-child(3) .p-text-badge { background: var(--mint); color: var(--text); }
+.p-item:nth-child(4) .p-text-badge { background: var(--baby-blue); color: var(--text); }
+.p-item:nth-child(5) .p-text-badge { background: var(--peach); color: var(--text); }
+.p-item:nth-child(6) .p-text-badge { background: var(--pink); }
+.p-item:nth-child(7) .p-text-badge { background: var(--lavender); }
+.p-item:nth-child(8) .p-text-badge { background: var(--mint); color: var(--text); }
+
+.p-text-title {
+  font-family: 'Satisfy', cursive;
+  font-size: 2rem; color: var(--text); margin-bottom: 10px;
+}
+.p-text-desc {
+  font-size: 0.95rem; line-height: 1.9;
+  color: var(--text-light); font-style: italic;
+}
+
+/* ===== LOVE NOTE ===== */
+.love-note-section {
+  max-width: 700px; margin: 0 auto; padding: 60px 40px 100px;
+  text-align: center; position: relative; z-index: 2;
+}
+.love-note {
+  background: white; border-radius: 24px; padding: 50px 40px;
+  box-shadow: 0 15px 60px rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(40px);
+  transition: all 1s ease;
+}
+.love-note.visible { opacity: 1; transform: translateY(0); }
+.love-note::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--pink), var(--lavender), var(--mint), var(--baby-blue));
+}
+.ln-emoji { font-size: 3rem; margin-bottom: 20px; }
+.ln-text {
+  font-size: 1.05rem; line-height: 2.2; color: var(--text-light); font-style: italic;
+}
+.ln-sig {
+  font-family: 'Satisfy', cursive;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-top: 25px;
+}
+.ln-hearts { margin-top: 10px; font-size: 1.3rem; letter-spacing: 10px; }
+
+/* ===== FINALE ===== */
+.finale {
+  min-height: 60vh;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center; padding: 80px 40px; position: relative; z-index: 2;
+}
+.fin-balloons {
+  font-size: 3rem; letter-spacing: 15px;
+  opacity: 0; transition: all 1s ease;
+}
+.fin-balloons.visible { opacity: 1; }
+.fin-title {
+  font-family: 'Satisfy', cursive;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  background: linear-gradient(135deg, var(--pink), var(--lavender), var(--baby-blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin: 20px 0; filter: drop-shadow(0 4px 20px rgba(248,164,200,0.2));
+  opacity: 0; transform: scale(0.8);
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fin-title.visible { opacity: 1; transform: scale(1); }
+.fin-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem; color: var(--text-light);
+  opacity: 0; transition: all 1s ease 0.5s;
+}
+.fin-sub.visible { opacity: 1; }
+.fin-confetti {
+  margin-top: 30px; font-size: 2rem; letter-spacing: 10px;
+  opacity: 0; transition: all 1s ease 0.8s;
+}
+.fin-confetti.visible { opacity: 1; }
+
+.footer {
+  text-align: center; padding: 30px; position: relative; z-index: 2;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem; color: var(--text-light);
+}
+
+@media (max-width: 900px) {
+  .p-timeline::before { left: 25px; }
+  .p-item, .p-item:nth-child(even) {
+    flex-direction: column; padding-left: 55px;
+  }
+  .p-dot { left: 25px; width: 35px; height: 35px; font-size: 1rem; }
+  .p-photo-side, .p-text-side { width: 100%; padding: 0; }
+  .p-text-side { padding-top: 20px; }
+}
+
+/* ===== CLICK CONFETTI ===== */
+.confetti-piece {
+  position: fixed; pointer-events: none; z-index: 9999;
+  width: 8px; height: 8px; border-radius: 2px;
+  animation: confettiFall 1s ease-out forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--cx), var(--cy)) rotate(var(--cr)) scale(0); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="mesh-bg"></div>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="pre-bounce">
+    <div class="pre-dot"></div><div class="pre-dot"></div>
+    <div class="pre-dot"></div><div class="pre-dot"></div>
+  </div>
+  <p class="pre-text">Loading our sweetest memories... 💝</p>
+</div>
+
+<!-- Clouds -->
+<div class="clouds" id="clouds"></div>
+
+<!-- Butterflies -->
+<div id="butterflies"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-emoji">🎀</div>
+  <h1 class="hero-title">Sweet Memories</h1>
+  <p class="hero-sub">A dreamy timeline of our beautiful journey together</p>
+  <p class="hero-stars">🌸 ✨ 💝 ✨ 🌸</p>
+  <div class="hero-scroll">
+    <div class="hero-scroll-dot"></div>
+    <p class="hero-scroll-text">Scroll Down</p>
+  </div>
+</section>
+
+<div class="rainbow-div"></div>
+
+<!-- Timeline -->
+<div class="sec-head">
+  <p class="sec-head-emoji">📖</p>
+  <h2 class="sec-head-title">Our Beautiful Journey</h2>
+  <p class="sec-head-sub">Every moment with you is a page worth remembering</p>
+</div>
+
+<section class="p-timeline" id="pTimeline"></section>
+
+<div class="rainbow-div"></div>
+
+<!-- Love Note -->
+<div class="sec-head">
+  <p class="sec-head-emoji">💌</p>
+  <h2 class="sec-head-title">A Love Note</h2>
+  <p class="sec-head-sub">Words from the deepest part of my heart</p>
+</div>
+
+<section class="love-note-section">
+  <div class="love-note" id="loveNote">
+    <div class="ln-emoji">💝</div>
+    <p class="ln-text">
+      My sweet love, you are the reason I believe in magic. Every smile you give me
+      melts my heart, every laugh we share becomes my favorite melody, and every
+      moment together feels like a beautiful dream painted in the prettiest colors.
+      On your birthday, I want to wrap you in all the love in my heart and remind you
+      that you are the most wonderful, sweetest, most amazing person in my world.
+      Happy Birthday, my darling! Let's fill a million more pages with our sweet memories. 💕
+    </p>
+    <p class="ln-sig">Yours Forever</p>
+    <p class="ln-hearts">💖 🌸 💖 🌸 💖</p>
+  </div>
+</section>
+
+<div class="rainbow-div"></div>
+
+<!-- Finale -->
+<section class="finale">
+  <div class="fin-balloons" id="finBalloons">🎈🎀🎈</div>
+  <h2 class="fin-title" id="finTitle">Happy Birthday, My Sweetheart!</h2>
+  <p class="fin-sub" id="finSub">May your day be as sweet and beautiful as you are 💝</p>
+  <p class="fin-confetti" id="finConfetti">🎉 🎊 🎁 🎂 🎉</p>
+</section>
+
+<footer class="footer">Made with all my love, just for you 💕</footer>
+
+<script>
+// ===== MEMORIES - ADD PHOTOS LATER =====
+const MEMORIES = [
+  {
+    badge: "the beginning",
+    title: "When We First Met",
+    desc: "Like a page from a fairy tale, our story began with a moment so sweet it made my heart skip a beat. I looked at you and thought, 'This is the one.'",
+    emoji: "💫",
+    photo: "" // Add: "photos/1.jpg"
+  },
+  {
+    badge: "butterflies",
+    title: "Our First Date",
+    desc: "Do you remember how nervous we both were? The way we couldn't stop smiling, the butterflies, the magic in the air — it was the beginning of everything beautiful.",
+    emoji: "🦋",
+    photo: ""
+  },
+  {
+    badge: "falling in love",
+    title: "When I Knew",
+    desc: "There was this one moment — maybe it was the way you laughed, or the way your eyes sparkled — when I realized I was completely, hopelessly, beautifully in love with you.",
+    emoji: "💕",
+    photo: ""
+  },
+  {
+    badge: "adventures",
+    title: "Our Happy Place",
+    desc: "Whether it's a fancy dinner or a cozy night at home, a big trip or a walk around the block — every place becomes my happy place when you're there.",
+    emoji: "🌈",
+    photo: ""
+  },
+  {
+    badge: "cozy moments",
+    title: "Lazy Days Together",
+    desc: "Wrapped in blankets, sharing snacks, binge-watching shows, doing absolutely nothing — these are the moments I treasure most. Just being with you is everything.",
+    emoji: "☁️",
+    photo: ""
+  },
+  {
+    badge: "laughter",
+    title: "Our Silly Moments",
+    desc: "The inside jokes nobody else gets, the uncontrollable giggles, the times we laugh until we cry — you make life the most fun adventure imaginable.",
+    emoji: "😂",
+    photo: ""
+  },
+  {
+    badge: "growth",
+    title: "Growing Together",
+    desc: "Through every up and down, we've grown stronger and closer. You inspire me to be better every day, and loving you has been the greatest journey of my life.",
+    emoji: "🌱",
+    photo: ""
+  },
+  {
+    badge: "happy birthday 🎂",
+    title: "Today We Celebrate YOU!",
+    desc: "The world got so much brighter the day you were born. Today we celebrate the most amazing, sweetest, most lovable person — YOU! Happy Birthday, my everything! 🎂✨💖",
+    emoji: "🎂",
+    photo: ""
+  }
+];
+
+// ===== PRELOADER =====
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2200);
+});
+
+// ===== CLOUDS =====
+function createClouds() {
+  const c = document.getElementById('clouds');
+  for (let i = 0; i < 5; i++) {
+    const cloud = document.createElement('div');
+    cloud.className = 'cloud';
+    const w = Math.random() * 150 + 100;
+    const h = w * 0.4;
+    cloud.style.top = (Math.random() * 60 + 5) + '%';
+    cloud.style.animationDuration = (Math.random() * 40 + 30) + 's';
+    cloud.style.animationDelay = (Math.random() * 20) + 's';
+    cloud.innerHTML = `<div class="cloud-shape" style="width:${w}px;height:${h}px;"></div>`;
+    c.appendChild(cloud);
+  }
+}
+createClouds();
+
+// ===== BUTTERFLIES =====
+function createButterflies() {
+  const c = document.getElementById('butterflies');
+  const bflies = ['🦋','🦋','💕'];
+  for (let i = 0; i < 4; i++) {
+    const b = document.createElement('div');
+    b.className = 'butterfly';
+    b.textContent = bflies[Math.floor(Math.random() * bflies.length)];
+    b.style.animationDuration = (Math.random() * 20 + 15) + 's';
+    b.style.animationDelay = (Math.random() * 15) + 's';
+    b.style.fontSize = (Math.random() * 10 + 14) + 'px';
+    c.appendChild(b);
+  }
+}
+createButterflies();
+
+// ===== BUILD TIMELINE =====
+function buildTimeline() {
+  const tl = document.getElementById('pTimeline');
+  MEMORIES.forEach((m, i) => {
+    const item = document.createElement('div');
+    item.className = 'p-item';
+    item.innerHTML = `
+      <div class="p-dot">${m.emoji}</div>
+      <div class="p-photo-side">
+        <div class="p-photo-card">
+          <div class="p-photo-area">${m.emoji}</div>
+          <p class="p-photo-label">${m.title}</p>
+        </div>
+      </div>
+      <div class="p-text-side">
+        <span class="p-text-badge">${m.badge}</span>
+        <h3 class="p-text-title">${m.title}</h3>
+        <p class="p-text-desc">${m.desc}</p>
+      </div>
+    `;
+    tl.appendChild(item);
+  });
+}
+buildTimeline();
+
+// ===== OBSERVER =====
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.p-item, #loveNote, #finBalloons, #finTitle, #finSub, #finConfetti')
+  .forEach(el => obs.observe(el));
+
+// ===== CLICK CONFETTI =====
+const confettiColors = ['#f8a4c8','#c5a3e8','#a8e6cf','#ffd3b6','#a8d8ea','#ff8a80','#ffd700'];
+document.addEventListener('click', (e) => {
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = e.clientX + 'px';
+    p.style.top = e.clientY + 'px';
+    p.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    const angle = (Math.PI * 2 / 12) * i;
+    const dist = 40 + Math.random() * 60;
+    p.style.setProperty('--cx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--cy', Math.sin(angle) * dist + 'px');
+    p.style.setProperty('--cr', (Math.random() * 720 - 360) + 'deg');
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+});
+
+// ===== PARALLAX =====
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  document.querySelector('.hero').style.transform = `translateY(${y * 0.15}px)`;
+});
+</script>
+</body>
+</html>

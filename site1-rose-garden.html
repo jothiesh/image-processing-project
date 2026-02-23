@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Sweet Memories 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blush: #f8e8e0;
+  --rose: #d4727a;
+  --deep-rose: #a8404a;
+  --petal: #f2c4c8;
+  --cream: #fef9f4;
+  --gold: #c9a96e;
+  --sage: #8fa68a;
+  --text: #3d2c2e;
+  --soft-shadow: rgba(168,64,74,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'Lora', serif;
+  overflow-x: hidden;
+}
+
+/* ===== PRELOADER ===== */
+.preloader {
+  position: fixed; inset: 0; z-index: 10000;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  transition: opacity 1.2s ease, visibility 1.2s;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; }
+.pre-flower { font-size: 3rem; animation: bloom 2s ease infinite; }
+@keyframes bloom {
+  0%,100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(10deg); }
+}
+.pre-text {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 1.5rem; color: var(--rose); margin-top: 20px;
+  animation: fadeInOut 2s ease infinite;
+}
+@keyframes fadeInOut { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ===== FALLING PETALS ===== */
+.petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+.petal {
+  position: absolute; font-size: 1.2rem; opacity: 0;
+  animation: petalFall linear infinite;
+}
+@keyframes petalFall {
+  0% { transform: translateY(-50px) rotate(0deg) translateX(0); opacity: 0; }
+  10% { opacity: 0.7; }
+  50% { transform: translateY(50vh) rotate(180deg) translateX(40px); }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+
+/* ===== WATERCOLOR BG BLOBS ===== */
+.watercolor {
+  position: fixed; border-radius: 50%; filter: blur(100px);
+  pointer-events: none; z-index: 0;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  position: relative; z-index: 2; text-align: center; padding: 40px;
+}
+.hero-ornament {
+  font-size: 2rem; color: var(--gold);
+  opacity: 0; animation: fadeUp 1s ease 1.8s forwards;
+  letter-spacing: 20px;
+}
+.hero-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  color: var(--deep-rose);
+  margin: 15px 0;
+  opacity: 0; animation: fadeUp 1.2s ease 2.2s forwards;
+  text-shadow: 0 4px 30px var(--soft-shadow);
+}
+.hero-sub {
+  font-family: 'Cormorant Upright', serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 300; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--rose); opacity: 0; animation: fadeUp 1s ease 2.6s forwards;
+}
+.hero-heart {
+  margin-top: 30px; font-size: 1.5rem;
+  opacity: 0; animation: fadeUp 1s ease 3s forwards;
+}
+.hero-scroll {
+  position: absolute; bottom: 50px;
+  opacity: 0; animation: fadeUp 1s ease 3.5s forwards, gentleBounce 3s ease infinite 3.5s;
+  font-family: 'Cormorant Upright', serif;
+  font-size: 0.75rem; letter-spacing: 4px; color: var(--gold);
+  text-transform: uppercase;
+}
+.hero-scroll::after {
+  content: ''; display: block; width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  margin: 10px auto 0;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes gentleBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+.hero-title, .hero-sub, .hero-ornament, .hero-heart, .hero-scroll { transform: translateY(30px); }
+
+/* ===== SECTION HEADER ===== */
+.sec-header {
+  text-align: center; padding: 100px 40px 40px; position: relative; z-index: 2;
+}
+.sec-ornament { font-size: 1.2rem; color: var(--gold); letter-spacing: 15px; }
+.sec-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--deep-rose); margin-top: 10px;
+}
+.sec-line {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  margin: 20px auto 0;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  max-width: 1100px; margin: 0 auto; padding: 60px 40px 120px;
+  position: relative; z-index: 2;
+}
+.timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--petal), var(--rose), var(--petal), transparent);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex; align-items: flex-start; margin-bottom: 100px;
+  position: relative;
+  opacity: 0; transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tl-item.visible { opacity: 1; transform: translateY(0); }
+.tl-item:nth-child(even) { flex-direction: row-reverse; }
+
+.tl-dot {
+  position: absolute; left: 50%; top: 30px;
+  width: 18px; height: 18px;
+  background: var(--cream); border: 3px solid var(--rose);
+  border-radius: 50%; transform: translateX(-50%);
+  z-index: 3;
+  box-shadow: 0 0 0 6px rgba(212,114,122,0.1);
+  transition: all 0.5s ease;
+}
+.tl-item.visible .tl-dot {
+  background: var(--rose);
+  box-shadow: 0 0 0 8px rgba(212,114,122,0.15), 0 0 20px rgba(212,114,122,0.1);
+}
+.tl-dot-flower {
+  position: absolute; left: 50%; top: 22px; transform: translateX(-50%);
+  font-size: 1.8rem; z-index: 4; opacity: 0;
+  transition: all 0.6s ease 0.3s;
+}
+.tl-item.visible .tl-dot-flower { opacity: 1; }
+
+.tl-photo-side { width: 45%; padding: 0 30px; }
+.tl-content-side { width: 45%; padding: 0 30px; padding-top: 20px; }
+
+.tl-photo-frame {
+  background: white; padding: 12px; border-radius: 4px;
+  box-shadow: 0 8px 40px var(--soft-shadow), 0 2px 8px rgba(0,0,0,0.04);
+  transform: rotate(var(--rot, -2deg));
+  transition: transform 0.6s ease;
+  position: relative; overflow: hidden;
+}
+.tl-item:nth-child(2) .tl-photo-frame { --rot: 2deg; }
+.tl-item:nth-child(3) .tl-photo-frame { --rot: -1.5deg; }
+.tl-item:nth-child(4) .tl-photo-frame { --rot: 3deg; }
+.tl-item:nth-child(5) .tl-photo-frame { --rot: -2.5deg; }
+.tl-item:nth-child(6) .tl-photo-frame { --rot: 1.5deg; }
+.tl-item:nth-child(7) .tl-photo-frame { --rot: -1deg; }
+.tl-item:nth-child(8) .tl-photo-frame { --rot: 2.5deg; }
+
+.tl-photo-frame:hover { transform: rotate(0deg) scale(1.03); }
+
+.tl-photo {
+  width: 100%; aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--blush), var(--petal));
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; color: var(--rose);
+  position: relative; overflow: hidden;
+}
+/* placeholder pattern */
+.tl-photo::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(212,114,122,0.03) 20px, rgba(212,114,122,0.03) 40px);
+}
+.tl-photo-label {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 1.1rem; color: var(--rose);
+  text-align: center; margin-top: 10px;
+  font-style: italic;
+}
+
+.tl-date {
+  font-family: 'Cormorant Upright', serif;
+  font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600;
+}
+.tl-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 2rem; color: var(--deep-rose); margin: 8px 0;
+}
+.tl-desc {
+  font-size: 0.95rem; line-height: 1.9;
+  color: rgba(61,44,46,0.75); font-style: italic;
+}
+.tl-tag {
+  display: inline-block; margin-top: 12px; padding: 4px 14px;
+  background: rgba(212,114,122,0.08); border-radius: 20px;
+  font-size: 0.7rem; letter-spacing: 2px; color: var(--rose);
+}
+
+/* ===== LOVE LETTER ===== */
+.letter-section {
+  max-width: 750px; margin: 0 auto; padding: 80px 40px 120px;
+  text-align: center; position: relative; z-index: 2;
+}
+.letter-card {
+  background: white; border-radius: 8px; padding: 60px 50px;
+  box-shadow: 0 20px 80px var(--soft-shadow);
+  position: relative;
+  opacity: 0; transform: translateY(40px);
+  transition: all 1s ease;
+}
+.letter-card.visible { opacity: 1; transform: translateY(0); }
+.letter-card::before {
+  content: '✉'; position: absolute; top: -20px; left: 50%;
+  transform: translateX(-50%); font-size: 2rem;
+}
+.letter-text {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem; line-height: 2.2; font-style: italic;
+  color: rgba(61,44,46,0.8);
+}
+.letter-sig {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 2.5rem; color: var(--deep-rose);
+  margin-top: 30px;
+}
+.letter-hearts { margin-top: 10px; font-size: 1.2rem; }
+
+/* ===== FINAL WISH ===== */
+.final-wish {
+  min-height: 60vh;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  text-align: center; padding: 80px 40px;
+  position: relative; z-index: 2;
+}
+.fw-flower { font-size: 3rem; opacity: 0; transition: all 1s ease; }
+.fw-flower.visible { opacity: 1; }
+.fw-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  color: var(--deep-rose);
+  margin: 20px 0 10px;
+  opacity: 0; transform: scale(0.85);
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fw-title.visible { opacity: 1; transform: scale(1); }
+.fw-sub {
+  font-family: 'Cormorant Upright', serif;
+  font-size: 1.1rem; letter-spacing: 4px; color: var(--gold);
+  opacity: 0; transition: all 1s ease 0.5s;
+}
+.fw-sub.visible { opacity: 1; }
+.fw-ornament {
+  margin-top: 30px; font-size: 1.5rem; color: var(--gold);
+  letter-spacing: 15px;
+  opacity: 0; transition: all 1s ease 0.8s;
+}
+.fw-ornament.visible { opacity: 1; }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center; padding: 40px; position: relative; z-index: 2;
+  font-family: 'Cormorant Upright', serif;
+  font-size: 0.8rem; letter-spacing: 3px; color: var(--rose);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .timeline::before { left: 30px; }
+  .tl-item, .tl-item:nth-child(even) {
+    flex-direction: column; padding-left: 60px;
+  }
+  .tl-dot, .tl-dot-flower { left: 30px; }
+  .tl-photo-side, .tl-content-side { width: 100%; padding: 0; }
+  .tl-content-side { padding-top: 20px; }
+}
+
+/* ===== CLICK PETALS ===== */
+.click-petal {
+  position: fixed; pointer-events: none; z-index: 9999;
+  animation: clickPetal 1s ease-out forwards;
+}
+@keyframes clickPetal {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(0); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="pre-flower">🌸</div>
+  <p class="pre-text">Gathering our memories...</p>
+</div>
+
+<!-- Watercolor blobs -->
+<div class="watercolor" style="width:500px;height:500px;background:radial-gradient(circle,rgba(242,196,200,0.25),transparent);top:5%;left:-10%;"></div>
+<div class="watercolor" style="width:400px;height:400px;background:radial-gradient(circle,rgba(201,169,110,0.12),transparent);top:30%;right:-5%;"></div>
+<div class="watercolor" style="width:450px;height:450px;background:radial-gradient(circle,rgba(143,166,138,0.12),transparent);bottom:10%;left:20%;"></div>
+
+<!-- Petals -->
+<div class="petals-container" id="petals"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="hero-ornament">✿ ✿ ✿</p>
+  <h1 class="hero-title">Our Sweet Memories</h1>
+  <p class="hero-sub">A Timeline of Love</p>
+  <p class="hero-heart">🤍</p>
+  <div class="hero-scroll">Scroll Down</div>
+</section>
+
+<!-- Timeline -->
+<div class="sec-header">
+  <p class="sec-ornament">❀ ❀ ❀</p>
+  <h2 class="sec-title">Moments We Cherish</h2>
+  <div class="sec-line"></div>
+</div>
+
+<section class="timeline" id="timeline"></section>
+
+<!-- Love Letter -->
+<div class="sec-header">
+  <p class="sec-ornament">♡ ♡ ♡</p>
+  <h2 class="sec-title">A Note From My Heart</h2>
+  <div class="sec-line"></div>
+</div>
+
+<section class="letter-section">
+  <div class="letter-card" id="letterCard">
+    <p class="letter-text">
+      My dearest love, every single day with you feels like a beautiful chapter in the most wonderful story ever told. 
+      Your smile lights up even the darkest days, and your laughter is my favorite melody. 
+      On your special day, I want you to know — you are my forever, my always, my everything. 
+      Thank you for filling my life with so much love, joy, and endless beautiful memories. 
+      Here's to creating a million more together.
+    </p>
+    <p class="letter-sig">Forever Yours</p>
+    <p class="letter-hearts">🤍 🌸 🤍</p>
+  </div>
+</section>
+
+<!-- Final Wish -->
+<section class="final-wish">
+  <div class="fw-flower" id="fwFlower">🌹</div>
+  <h2 class="fw-title" id="fwTitle">Happy Birthday, My Love</h2>
+  <p class="fw-sub" id="fwSub">May every wish your heart holds come true</p>
+  <p class="fw-ornament" id="fwOrn">✿ ❀ ✿ ❀ ✿</p>
+</section>
+
+<footer class="footer">Made with love, just for you 🤍</footer>
+
+<script>
+// ===== MEMORIES CONFIG - ADD YOUR PHOTOS HERE LATER =====
+const MEMORIES = [
+  {
+    date: "The Day We Met",
+    title: "When It All Began",
+    desc: "The universe conspired to bring us together. That first glance, that first smile — I knew my life was about to change forever.",
+    tag: "first moment",
+    emoji: "💫",
+    photo: "" // Add photo URL here: "photos/photo1.jpg"
+  },
+  {
+    date: "Our First Date",
+    title: "Butterflies & Bliss",
+    desc: "Nervous hearts, shy smiles, and the magical feeling of falling for you. Every second felt like a beautiful dream I never wanted to end.",
+    tag: "first date",
+    emoji: "🦋",
+    photo: ""
+  },
+  {
+    date: "That Special Night",
+    title: "Under The Stars",
+    desc: "We talked until the stars came out and kept talking until they faded. That night, I realized you weren't just someone special — you were my person.",
+    tag: "stargazing",
+    emoji: "🌙",
+    photo: ""
+  },
+  {
+    date: "Our First Trip",
+    title: "Adventures Together",
+    desc: "Exploring new places hand in hand, getting lost on purpose, finding the most beautiful corners of the world — but the best view was always you.",
+    tag: "adventure",
+    emoji: "✈️",
+    photo: ""
+  },
+  {
+    date: "The Day I Said I Love You",
+    title: "Three Little Words",
+    desc: "My heart was racing, my palms were sweating, but the moment those words left my lips and I saw your eyes light up — I knew it was the most honest thing I'd ever said.",
+    tag: "i love you",
+    emoji: "💕",
+    photo: ""
+  },
+  {
+    date: "Our Special Celebration",
+    title: "Dancing In The Rain",
+    desc: "Who needs sunshine when we have each other? That rainy day turned into one of our most magical memories, spinning and laughing without a care in the world.",
+    tag: "celebration",
+    emoji: "💃",
+    photo: ""
+  },
+  {
+    date: "Quiet Moments",
+    title: "The Little Things",
+    desc: "Lazy Sunday mornings, cooking together, your head on my shoulder during a movie — these simple, quiet moments are the ones I treasure most.",
+    tag: "everyday love",
+    emoji: "☕",
+    photo: ""
+  },
+  {
+    date: "Today & Forever",
+    title: "Happy Birthday, Beautiful",
+    desc: "Today we celebrate the most amazing person in my life — YOU. Every memory we've made has been a treasure, and I can't wait for a lifetime of new ones. Happy Birthday, my love!",
+    tag: "happy birthday 🎂",
+    emoji: "🎂",
+    photo: ""
+  }
+];
+
+// ===== PRELOADER =====
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
+});
+
+// ===== PETALS =====
+function createPetals() {
+  const c = document.getElementById('petals');
+  const petals = ['🌸','🌺','💮','🏵️','✿'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      font-size:${Math.random()*12+8}px;
+      animation-duration:${Math.random()*10+10}s;
+      animation-delay:${Math.random()*12}s;
+      opacity:0;
+    `;
+    c.appendChild(p);
+  }
+}
+createPetals();
+
+// ===== BUILD TIMELINE =====
+function buildTimeline() {
+  const tl = document.getElementById('timeline');
+  MEMORIES.forEach((m, i) => {
+    const item = document.createElement('div');
+    item.className = 'tl-item';
+    item.style.transitionDelay = `${i * 0.1}s`;
+    
+    const photoHTML = m.photo 
+      ? `<img src="${m.photo}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:2px;" />`
+      : '';
+    
+    item.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-dot-flower">${m.emoji}</div>
+      <div class="tl-photo-side">
+        <div class="tl-photo-frame">
+          <div class="tl-photo">
+            ${photoHTML}
+            ${!m.photo ? m.emoji : ''}
+          </div>
+          <p class="tl-photo-label">${m.title}</p>
+        </div>
+      </div>
+      <div class="tl-content-side">
+        <p class="tl-date">${m.date}</p>
+        <h3 class="tl-title">${m.title}</h3>
+        <p class="tl-desc">${m.desc}</p>
+        <span class="tl-tag">${m.tag}</span>
+      </div>
+    `;
+    tl.appendChild(item);
+  });
+}
+buildTimeline();
+
+// ===== SCROLL OBSERVER =====
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.tl-item, #letterCard, #fwFlower, #fwTitle, #fwSub, #fwOrn')
+  .forEach(el => obs.observe(el));
+
+// ===== CLICK PETALS =====
+document.addEventListener('click', (e) => {
+  const petals = ['🌸','💮','🌺','🏵️','✿','❀'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'click-petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = e.clientX + 'px';
+    p.style.top = e.clientY + 'px';
+    p.style.fontSize = (Math.random() * 12 + 10) + 'px';
+    const angle = (Math.PI * 2 / 8) * i;
+    const dist = 40 + Math.random() * 50;
+    p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+    p.style.setProperty('--r', (Math.random() * 360) + 'deg');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+});
+
+// ===== SMOOTH PARALLAX =====
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  document.querySelector('.hero').style.transform = `translateY(${y * 0.2}px)`;
+});
+</script>
+</body>
+</html>
