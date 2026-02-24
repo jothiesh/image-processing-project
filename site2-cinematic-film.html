@@ -265,7 +265,8 @@ body {
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end; /* This pushes the camera and text to the bottom */
+  padding-bottom: 20px;      /* Gives it some breathing room from the bottom edge */
   flex-direction: column;
   gap: 8px;
   cursor: pointer;
