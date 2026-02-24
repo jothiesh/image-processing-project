@@ -1,1 +1,789 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Happy Birthday - Written In The Stars</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #050510;
+  --deep: #0a0a2e;
+  --neon-pink: #ff2d95;
+  --neon-blue: #00d4ff;
+  --neon-purple: #b44dff;
+  --neon-warm: #ff6b6b;
+  --star-white: #e8e8ff;
+  --glow-pink: rgba(255,45,149,0.3);
+  --glow-blue: rgba(0,212,255,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--void);
+  color: var(--star-white);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== STAR FIELD ===== */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ===== SHOOTING STARS ===== */
+.shooting-star {
+  position: fixed;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--neon-pink), transparent);
+  z-index: 1;
+  opacity: 0;
+  animation: shoot 2s ease-in-out infinite;
+  transform: rotate(-35deg);
+}
+@keyframes shoot {
+  0% { opacity: 0; transform: translateX(-200px) translateY(-100px) rotate(-35deg); }
+  5% { opacity: 1; }
+  15% { opacity: 1; }
+  20% { opacity: 0; transform: translateX(calc(100vw + 200px)) translateY(calc(100vh)) rotate(-35deg); }
+  100% { opacity: 0; }
+}
+
+/* ===== NEBULA ===== */
+.nebula {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: nebulaPulse 8s ease-in-out infinite alternate;
+}
+@keyframes nebulaPulse {
+  0% { opacity: 0.15; transform: scale(1); }
+  100% { opacity: 0.25; transform: scale(1.1); }
+}
+
+/* ===== INTRO PORTAL ===== */
+.portal-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.portal-intro.hidden {
+  opacity: 0;
+  transform: scale(2);
+  pointer-events: none;
+}
+.portal-ring {
+  width: 150px; height: 150px;
+  border: 2px solid var(--neon-pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: portalSpin 3s linear infinite;
+  box-shadow: 0 0 30px var(--glow-pink), inset 0 0 30px var(--glow-pink);
+  position: relative;
+}
+.portal-ring::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--neon-blue);
+  border-radius: 50%;
+  animation: portalSpin 2s linear infinite reverse;
+  box-shadow: 0 0 20px var(--glow-blue);
+}
+@keyframes portalSpin { to { transform: rotate(360deg); } }
+.portal-heart { font-size: 3rem; animation: heartGlow 1.5s ease infinite; }
+@keyframes heartGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 20px var(--neon-pink)); }
+}
+.portal-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 6px;
+  color: var(--neon-blue);
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+.loading-bar {
+  width: 200px; height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 20px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+  animation: loadFill 2.5s ease forwards;
+  border-radius: 1px;
+}
+@keyframes loadFill { 0% { width: 0; } 100% { width: 100%; } }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  padding: 40px;
+}
+.glitch-text {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  opacity: 0;
+  animation: revealHero 1s ease 3.5s forwards;
+  filter: drop-shadow(0 0 40px rgba(255,45,149,0.3));
+}
+@keyframes revealHero { to { opacity: 1; } }
+
+.hero-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--neon-blue);
+  text-shadow: 0 0 20px var(--glow-blue);
+  margin-top: 15px;
+  opacity: 0;
+  animation: revealHero 1s ease 4s forwards;
+}
+.hero-mono {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  color: var(--neon-purple);
+  margin-top: 25px;
+  opacity: 0;
+  animation: revealHero 1s ease 4.4s forwards;
+}
+
+/* ===== NEON DIVIDER ===== */
+.neon-divider {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-blue), transparent);
+  box-shadow: 0 0 10px var(--glow-pink), 0 0 20px var(--glow-blue);
+}
+
+/* ===== 3D CARD GALLERY ===== */
+.gallery3d {
+  padding: 120px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 8px;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 0 10px var(--glow-pink);
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin: 15px 0 60px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  perspective: 1200px;
+}
+.neon-card {
+  background: linear-gradient(135deg, rgba(10,10,46,0.9), rgba(5,5,16,0.9));
+  border: 1px solid rgba(255,45,149,0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(60px) rotateX(10deg);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.neon-card.visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+.neon-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.neon-card:hover::before { opacity: 1; }
+.neon-card:hover {
+  transform: translateY(-10px) rotateX(0) scale(1.02);
+  box-shadow: 0 20px 60px rgba(255,45,149,0.15), 0 0 40px rgba(0,212,255,0.1);
+}
+
+.card-visual {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, rgba(255,45,149,0.05), rgba(0,212,255,0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.card-visual img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+.card-visual img.visible { display: block; }
+
+.card-upload {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s;
+}
+.card-upload:hover { background: rgba(255,45,149,0.05); }
+.card-upload.hidden { display: none; }
+.card-upload input { display: none; }
+.card-upload .icon { font-size: 2rem; }
+.card-upload .text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--neon-blue);
+  text-transform: uppercase;
+}
+
+.card-info { padding: 20px 25px 25px; }
+.card-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+}
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.card-glow {
+  width: 40px; height: 2px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+  margin-top: 12px;
+  border-radius: 1px;
+  box-shadow: 0 0 8px var(--glow-pink);
+}
+
+/* ===== MESSAGE TERMINAL ===== */
+.terminal-section {
+  padding: 100px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.terminal {
+  background: rgba(10,10,46,0.6);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 12px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0,212,255,0.05);
+}
+.terminal-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.terminal-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+
+.terminal-line {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 2;
+  margin-bottom: 10px;
+}
+.terminal-prompt { color: var(--neon-pink); }
+.terminal-cmd { color: var(--neon-blue); }
+.terminal-output { color: var(--star-white); opacity: 0.8; }
+.terminal-love { color: var(--neon-warm); }
+
+.typed-line {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.5s ease;
+}
+.typed-line.visible { opacity: 1; transform: translateX(0); }
+
+/* ===== CONSTELLATION MAP ===== */
+.constellation-section {
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.constellation-canvas {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 40px auto 0;
+  position: relative;
+  border: 1px solid rgba(255,45,149,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(5,5,16,0.5);
+}
+.const-star {
+  position: absolute;
+  width: 8px; height: 8px;
+  background: var(--star-white);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0,212,255,0.3);
+  z-index: 2;
+  animation: constTwinkle 2s ease infinite alternate;
+}
+@keyframes constTwinkle {
+  0% { box-shadow: 0 0 10px var(--neon-blue); }
+  100% { box-shadow: 0 0 20px var(--neon-pink), 0 0 40px rgba(255,45,149,0.3); }
+}
+.const-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,45,149,0.4), rgba(0,212,255,0.4));
+  transform-origin: left center;
+  z-index: 1;
+  opacity: 0;
+  animation: constLine 0.5s ease forwards;
+}
+@keyframes constLine { to { opacity: 1; } }
+.const-label {
+  position: absolute;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--glow-pink);
+  z-index: 3;
+}
+
+/* ===== FINALE ===== */
+.finale {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+  z-index: 2;
+}
+.finale-glow {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,45,149,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: nebulaPulse 6s ease infinite alternate;
+}
+.finale-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3rem, 8vw, 6rem);
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(255,45,149,0.3));
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.finale-title.visible { opacity: 1; transform: scale(1); }
+.finale-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 8px;
+  color: var(--neon-blue);
+  margin-top: 20px;
+  text-shadow: 0 0 10px var(--glow-blue);
+  opacity: 0;
+  transition: all 1s ease 0.5s;
+}
+.finale-sub.visible { opacity: 1; }
+
+.countdown-display {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+  opacity: 0;
+  transition: all 1s ease 0.8s;
+}
+.countdown-display.visible { opacity: 1; }
+.count-item {
+  text-align: center;
+}
+.count-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.count-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--neon-blue);
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .cards-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .constellation-canvas { height: 300px; }
+  .countdown-display { gap: 15px; }
+  .count-num { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Star Field -->
+<div class="starfield" id="starfield"></div>
+
+<!-- Shooting Stars -->
+<div id="shootingStars"></div>
+
+<!-- Nebulae -->
+<div class="nebula" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,45,149,0.15),transparent);top:10%;left:20%;"></div>
+<div class="nebula" style="width:350px;height:350px;background:radial-gradient(circle,rgba(0,212,255,0.1),transparent);top:50%;right:10%;animation-delay:3s;"></div>
+<div class="nebula" style="width:300px;height:300px;background:radial-gradient(circle,rgba(180,77,255,0.1),transparent);bottom:10%;left:40%;animation-delay:5s;"></div>
+
+<!-- Portal Intro -->
+<div class="portal-intro" id="portal">
+  <div class="portal-ring">
+    <span class="portal-heart">💖</span>
+  </div>
+  <p class="portal-text">Entering your universe</p>
+  <div class="loading-bar"><div class="loading-fill"></div></div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1 class="glitch-text">Happy B'day</h1>
+  <p class="hero-script">To the most amazing person in my universe</p>
+  <p class="hero-mono">// stars aligned for you</p>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- Gallery -->
+<section class="gallery3d">
+  <p class="section-tag">// memories.load()</p>
+  <h2 class="section-title">Our Galaxy of Moments</h2>
+  <div class="cards-grid" id="cardsGrid"></div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- Terminal Message -->
+<section class="terminal-section">
+  <p class="section-tag" style="margin-bottom:30px">// love.execute()</p>
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+    </div>
+    <div id="terminalContent">
+      <div class="terminal-line typed-line"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">love.init("you")</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-output">→ Connection established: heart_to_heart</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">feelings.describe()</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-output">→ [ "infinite", "unconditional", "growing_daily" ]</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">birthday.wish()</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-love">→ ❤️ Happy Birthday to the love of my life!</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-love">→ 🌟 You make every moment magical</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-love">→ 💕 Here's to forever and always</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">love.duration()</span></div>
+      <div class="terminal-line typed-line"><span class="terminal-output">→ Infinity</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- Constellation -->
+<section class="constellation-section">
+  <p class="section-tag">// stars.map(our_love)</p>
+  <h2 class="section-title">Written In The Stars</h2>
+  <div class="constellation-canvas" id="constellation"></div>
+</section>
+
+<div class="neon-divider"></div>
+
+<!-- Finale -->
+<section class="finale">
+  <div class="finale-glow"></div>
+  <h2 class="finale-title" id="finaleTitle">Happy Birthday, My Star ✨</h2>
+  <p class="finale-sub" id="finaleSub">— with love, across all galaxies —</p>
+  <div class="countdown-display" id="countdown">
+    <div class="count-item"><div class="count-num" id="cDays">∞</div><div class="count-label">Days Loved</div></div>
+    <div class="count-item"><div class="count-num" id="cHours">∞</div><div class="count-label">Hours</div></div>
+    <div class="count-item"><div class="count-num" id="cMins">∞</div><div class="count-label">Minutes</div></div>
+    <div class="count-item"><div class="count-num">♥</div><div class="count-label">Forever</div></div>
+  </div>
+</section>
+
+<script>
+// ===== CONFIG =====
+const CARDS = [
+  { emoji: "🌌", title: "First Encounter", tag: "memory_001" },
+  { emoji: "💫", title: "The Spark", tag: "memory_002" },
+  { emoji: "🌠", title: "Night Adventures", tag: "memory_003" },
+  { emoji: "💖", title: "Heart to Heart", tag: "memory_004" },
+  { emoji: "🎆", title: "Celebrations", tag: "memory_005" },
+  { emoji: "✨", title: "Forever & Always", tag: "memory_006" },
+];
+
+// ===== PORTAL =====
+setTimeout(() => document.getElementById('portal').classList.add('hidden'), 3000);
+
+// ===== STARFIELD =====
+function createStars() {
+  const sf = document.getElementById('starfield');
+  for (let i = 0; i < 200; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      animation-duration: ${Math.random() * 3 + 1}s;
+      animation-delay: ${Math.random() * 3}s;
+      opacity: ${Math.random() * 0.5 + 0.2};
+    `;
+    sf.appendChild(s);
+  }
+}
+createStars();
+
+// ===== SHOOTING STARS =====
+function launchStar() {
+  const s = document.createElement('div');
+  s.className = 'shooting-star';
+  s.style.top = Math.random() * 50 + '%';
+  s.style.left = Math.random() * 30 + '%';
+  s.style.width = (Math.random() * 100 + 50) + 'px';
+  s.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+  s.style.background = `linear-gradient(to right, transparent, ${['var(--neon-pink)','var(--neon-blue)','var(--neon-purple)'][Math.floor(Math.random()*3)]}, transparent)`;
+  document.getElementById('shootingStars').appendChild(s);
+  setTimeout(() => s.remove(), 4000);
+}
+setInterval(launchStar, 3000);
+setTimeout(launchStar, 4000);
+
+// ===== CARDS =====
+function buildCards() {
+  const grid = document.getElementById('cardsGrid');
+  CARDS.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'neon-card';
+    div.style.transitionDelay = `${i * 0.12}s`;
+    div.innerHTML = `
+      <div class="card-visual">
+        <span>${c.emoji}</span>
+        <img id="cimg-${i}" />
+        <label class="card-upload" id="czone-${i}">
+          <span class="icon">📷</span>
+          <span class="text">Upload Photo</span>
+          <input type="file" accept="image/*" onchange="uploadCard(event, ${i})" />
+        </label>
+      </div>
+      <div class="card-info">
+        <p class="card-tag">${c.tag}</p>
+        <p class="card-title">${c.title}</p>
+        <div class="card-glow"></div>
+      </div>
+    `;
+    grid.appendChild(div);
+  });
+}
+buildCards();
+
+function uploadCard(e, idx) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = document.getElementById(`cimg-${idx}`);
+    img.src = ev.target.result;
+    img.classList.add('visible');
+    document.getElementById(`czone-${idx}`).classList.add('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== CONSTELLATION =====
+function buildConstellation() {
+  const canvas = document.getElementById('constellation');
+  const w = canvas.offsetWidth, h = canvas.offsetHeight;
+  const heartPoints = [
+    [0.5, 0.25], [0.35, 0.15], [0.2, 0.2], [0.15, 0.35],
+    [0.2, 0.5], [0.35, 0.65], [0.5, 0.8],
+    [0.65, 0.65], [0.8, 0.5], [0.85, 0.35],
+    [0.8, 0.2], [0.65, 0.15], [0.5, 0.25]
+  ];
+  
+  const labels = ['first', 'smile', 'laugh', 'kiss', 'love', 'us', 'forever'];
+  
+  heartPoints.forEach((p, i) => {
+    const star = document.createElement('div');
+    star.className = 'const-star';
+    star.style.left = (p[0] * w - 4) + 'px';
+    star.style.top = (p[1] * h - 4) + 'px';
+    star.style.animationDelay = (i * 0.2) + 's';
+    canvas.appendChild(star);
+    
+    if (i < labels.length) {
+      const label = document.createElement('div');
+      label.className = 'const-label';
+      label.textContent = labels[i];
+      label.style.left = (p[0] * w + 12) + 'px';
+      label.style.top = (p[1] * h - 8) + 'px';
+      label.style.animationDelay = (i * 0.3 + 0.5) + 's';
+      canvas.appendChild(label);
+    }
+    
+    if (i > 0) {
+      const prev = heartPoints[i-1];
+      const dx = (p[0] - prev[0]) * w;
+      const dy = (p[1] - prev[1]) * h;
+      const length = Math.sqrt(dx*dx + dy*dy);
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      
+      const line = document.createElement('div');
+      line.className = 'const-line';
+      line.style.width = length + 'px';
+      line.style.left = (prev[0] * w) + 'px';
+      line.style.top = (prev[1] * h) + 'px';
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.animationDelay = (i * 0.15) + 's';
+      canvas.appendChild(line);
+    }
+  });
+}
+setTimeout(buildConstellation, 100);
+
+// ===== SCROLL OBSERVER =====
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.neon-card, .typed-line, .finale-title, .finale-sub, #countdown')
+  .forEach(el => obs.observe(el));
+
+// ===== PARALLAX NEBULAE =====
+window.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelectorAll('.nebula').forEach((n, i) => {
+    const factor = (i + 1) * 0.5;
+    n.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+  });
+});
+
+// ===== CLICK BURST =====
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.card-upload')) return;
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    const angle = (Math.PI * 2 / 12) * i;
+    const dist = 40 + Math.random() * 40;
+    const color = ['var(--neon-pink)','var(--neon-blue)','var(--neon-purple)'][Math.floor(Math.random()*3)];
+    p.style.cssText = `
+      position: fixed; left: ${e.clientX}px; top: ${e.clientY}px;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: ${color}; box-shadow: 0 0 8px ${color};
+      pointer-events: none; z-index: 9999;
+      transition: all 0.6s ease-out;
+    `;
+    document.body.appendChild(p);
+    requestAnimationFrame(() => {
+      p.style.transform = `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`;
+      p.style.opacity = '0';
+    });
+    setTimeout(() => p.remove(), 700);
+  }
+});
+</script>
+</body>
+</html> 
