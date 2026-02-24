@@ -3,494 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Love 💕</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<title>💕 Happy Birthday My Love - Our Memory Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel:wght@400;600&family=Satisfy&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --rose: #e8a0bf;
-  --deep-rose: #c2185b;
-  --blush: #fce4ec;
-  --gold: #d4a574;
-  --cream: #fdf6f0;
-  --dark: #2d1b2e;
-  --wine: #4a1942;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0b0b1a;--card:#12122a;--pink:#ff5e9e;--rose:#e8a0bf;
+  --gold:#d4a574;--blue:#7eb8ff;--lavender:#c5a3e8;--mint:#a8e6cf;
+  --peach:#ffd3b6;--text:#f0eaff;--text2:#a09ab8;
 }
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Quicksand',sans-serif;overflow-x:hidden}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== STARFIELD ===== */
+.stars{position:fixed;inset:0;z-index:0;overflow:hidden}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite alternate}
+@keyframes twinkle{0%{opacity:.15;transform:scale(.7)}100%{opacity:1;transform:scale(1.3)}}
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
+/* ===== NEBULA BLOBS ===== */
+.nebula{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:nebPulse 8s ease-in-out infinite alternate}
+@keyframes nebPulse{0%{opacity:.12;transform:scale(1)}100%{opacity:.22;transform:scale(1.08)}}
 
-body {
-  background: var(--dark);
-  color: var(--cream);
-  font-family: 'Cormorant Garamond', serif;
-  overflow-x: hidden;
-}
+/* ===== PARTICLES ===== */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1}
+.pt{position:absolute;opacity:0;animation:ptFloat linear infinite}
+@keyframes ptFloat{0%{transform:translateY(105vh) scale(0);opacity:0}8%{opacity:.7}92%{opacity:.2}100%{transform:translateY(-30px) scale(1);opacity:0}}
 
 /* ===== PRELOADER ===== */
-.preloader {
-  position: fixed;
-  inset: 0;
-  background: var(--dark);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  transition: opacity 1s ease, visibility 1s ease;
-}
-.preloader.hidden { opacity: 0; visibility: hidden; }
-.preloader-heart {
-  width: 80px; height: 80px;
-  animation: heartbeat 1s ease-in-out infinite;
-}
-.preloader-heart::before, .preloader-heart::after {
-  content: '';
-  position: absolute;
-  width: 40px; height: 65px;
-  background: var(--deep-rose);
-  border-radius: 40px 40px 0 0;
-}
-.preloader-heart { position: relative; transform: rotate(-45deg); }
-.preloader-heart::before { left: 40px; }
-.preloader-heart::after { top: -25px; left: 12px; transform: rotate(90deg); }
-.preloader-text {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.5rem;
-  color: var(--rose);
-  margin-top: 30px;
-  animation: fadeInOut 2s ease infinite;
-}
+.preloader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 1s,visibility 1s}
+.preloader.hidden{opacity:0;visibility:hidden}
+.pre-ring{width:80px;height:80px;border:3px solid transparent;border-top-color:var(--pink);border-right-color:var(--lavender);border-radius:50%;animation:spin 1s linear infinite}
+.pre-ring::after{content:'';position:absolute;inset:8px;border:2px solid transparent;border-bottom-color:var(--gold);border-left-color:var(--blue);border-radius:50%;animation:spin 1.5s linear infinite reverse}
+.pre-ring{position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pre-text{font-family:'Pinyon Script',cursive;font-size:1.4rem;color:var(--rose);margin-top:25px;animation:fadeIO 2s ease infinite}
+@keyframes fadeIO{0%,100%{opacity:.3}50%{opacity:1}}
 
-@keyframes heartbeat {
-  0%, 100% { transform: rotate(-45deg) scale(1); }
-  50% { transform: rotate(-45deg) scale(1.15); }
-}
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;z-index:2;padding:40px 20px}
+.hero-badge{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:10px;text-transform:uppercase;color:var(--gold);opacity:0;animation:rUp 1s ease 1.8s forwards}
+.hero-title{font-family:'Pinyon Script',cursive;font-size:clamp(3rem,11vw,8rem);background:linear-gradient(135deg,var(--pink),var(--lavender),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0;opacity:0;animation:rUp 1.2s ease 2.1s forwards;filter:drop-shadow(0 0 40px rgba(255,94,158,.2))}
+.hero-sub{font-family:'Satisfy',cursive;font-size:clamp(1.2rem,3vw,2rem);color:var(--rose);opacity:0;animation:rUp 1s ease 2.5s forwards}
+.hero-hearts{margin-top:25px;font-size:1.5rem;letter-spacing:12px;opacity:0;animation:rUp 1s ease 2.9s forwards}
+.hero-arrow{position:absolute;bottom:40px;opacity:0;animation:rUp 1s ease 3.3s forwards,bounce 2.5s ease infinite 3.3s}
+.hero-arrow span{display:block;width:2px;height:45px;background:linear-gradient(to bottom,var(--gold),transparent);margin:0 auto}
+.hero-arrow-text{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:5px;color:var(--gold);margin-top:8px;text-transform:uppercase}
+@keyframes rUp{to{opacity:1;transform:translateY(0)}}
+.hero-badge,.hero-title,.hero-sub,.hero-hearts{transform:translateY(30px)}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
 
-/* ===== FLOATING PARTICLES ===== */
-.particles-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0;
-  animation: floatUp linear infinite;
-}
-@keyframes floatUp {
-  0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.3; }
-  100% { transform: translateY(-100px) rotate(720deg) scale(1); opacity: 0; }
-}
+/* ===== DIVIDER ===== */
+.divider{height:3px;margin:0 40px;background:linear-gradient(90deg,transparent,var(--pink),var(--lavender),var(--blue),var(--gold),transparent);border-radius:2px;position:relative;z-index:2;box-shadow:0 0 15px rgba(255,94,158,.15)}
 
-/* ===== HERO SECTION ===== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(194,24,91,0.15) 0%, transparent 70%),
-              radial-gradient(ellipse at 20% 80%, rgba(212,165,116,0.1) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, rgba(232,160,191,0.1) 0%, transparent 50%);
-}
-.hero-content {
-  text-align: center;
-  z-index: 5;
-  opacity: 0;
-  transform: translateY(60px);
-  animation: revealUp 1.5s ease 2.5s forwards;
-}
-@keyframes revealUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero-subtitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0;
-  animation: revealUp 1.2s ease 3s forwards;
-}
-.hero-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(3rem, 10vw, 8rem);
-  color: var(--rose);
-  text-shadow: 0 0 60px rgba(194,24,91,0.3), 0 0 120px rgba(194,24,91,0.1);
-  margin: 20px 0;
-  opacity: 0;
-  animation: revealUp 1.5s ease 3.3s forwards;
-}
-.hero-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 300;
-  letter-spacing: 4px;
-  opacity: 0;
-  animation: revealUp 1.2s ease 3.8s forwards;
-}
-.hero-date {
-  font-size: 0.9rem;
-  letter-spacing: 6px;
-  color: var(--gold);
-  margin-top: 30px;
-  opacity: 0;
-  animation: revealUp 1.2s ease 4.2s forwards;
-}
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  animation: revealUp 1s ease 5s forwards, bounce 2s ease infinite 5s;
-}
-.scroll-indicator span {
-  display: block;
-  width: 2px; height: 40px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  margin: 0 auto;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
+/* ===== SECTION HEADER ===== */
+.sec-hd{text-align:center;padding:90px 30px 40px;position:relative;z-index:2}
+.sec-hd-icon{font-size:2rem}
+.sec-hd-title{font-family:'Pinyon Script',cursive;font-size:clamp(2rem,5vw,3.8rem);background:linear-gradient(135deg,var(--pink),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:8px}
+.sec-hd-sub{font-size:.85rem;color:var(--text2);margin-top:6px;letter-spacing:2px}
 
-/* ===== GALLERY SECTION ===== */
-.section-title-wrap {
-  text-align: center;
-  padding: 100px 0 60px;
-}
-.section-label {
-  font-size: 0.8rem;
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.section-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  color: var(--rose);
-  margin-top: 10px;
-}
+/* ===== GALLERY GRID ===== */
+.gallery{max-width:1200px;margin:0 auto;padding:20px 30px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;position:relative;z-index:2}
 
-.gallery {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 40px 100px;
-}
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-.memory-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(80px) scale(0.9);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  background: linear-gradient(135deg, rgba(74,25,66,0.5), rgba(45,27,46,0.8));
-  border: 1px solid rgba(232,160,191,0.1);
-}
-.memory-card.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.memory-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 30px 80px rgba(194,24,91,0.2), 0 0 0 1px rgba(232,160,191,0.2);
-}
-.memory-card .photo-placeholder {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s ease;
-  background: linear-gradient(135deg, var(--wine), var(--dark));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-}
-.memory-card:hover .photo-placeholder { transform: scale(1.08); }
+.g-card{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:20px;overflow:hidden;opacity:0;transform:translateY(60px);transition:all .8s cubic-bezier(.16,1,.3,1);position:relative}
+.g-card.visible{opacity:1;transform:translateY(0)}
+.g-card::before{content:'';position:absolute;inset:-1px;border-radius:20px;z-index:-1;opacity:0;transition:opacity .5s}
+.g-card:hover::before{opacity:1}
+.g-card:hover{transform:translateY(-10px);box-shadow:0 25px 60px rgba(0,0,0,.35)}
 
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(45,27,46,0.95) 0%, transparent 60%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 30px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.memory-card:hover .card-overlay { opacity: 1; }
-.card-date {
-  font-size: 0.75rem;
-  letter-spacing: 4px;
-  color: var(--gold);
-  text-transform: uppercase;
-}
-.card-caption {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  margin-top: 8px;
-  font-style: italic;
-}
+.g-card:nth-child(1)::before{background:linear-gradient(135deg,var(--pink),var(--rose))}
+.g-card:nth-child(2)::before{background:linear-gradient(135deg,var(--gold),#e8c87c)}
+.g-card:nth-child(3)::before{background:linear-gradient(135deg,var(--lavender),var(--blue))}
+.g-card:nth-child(4)::before{background:linear-gradient(135deg,var(--rose),var(--peach))}
+.g-card:nth-child(5)::before{background:linear-gradient(135deg,var(--mint),var(--blue))}
+.g-card:nth-child(6)::before{background:linear-gradient(135deg,var(--blue),var(--lavender))}
 
-/* ===== PHOTO UPLOAD ZONE ===== */
-.upload-zone {
-  border: 2px dashed rgba(232,160,191,0.3);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-.upload-zone:hover {
-  border-color: var(--rose);
-  background: rgba(194,24,91,0.05);
-}
-.upload-zone .icon { font-size: 2.5rem; }
-.upload-zone .text {
-  font-size: 0.85rem;
-  color: var(--rose);
-  letter-spacing: 2px;
-}
-.upload-zone.has-image { opacity: 0; pointer-events: none; }
+.g-card-preview{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.g-card:nth-child(1) .g-card-preview{background:linear-gradient(135deg,#1a0a15,#2d1b2e)}
+.g-card:nth-child(2) .g-card-preview{background:linear-gradient(135deg,#0c0c14,#14141f)}
+.g-card:nth-child(3) .g-card-preview{background:linear-gradient(135deg,#050510,#0a0a2e)}
+.g-card:nth-child(4) .g-card-preview{background:linear-gradient(135deg,#f8e8e0,#fce4ec)}
+.g-card:nth-child(5) .g-card-preview{background:linear-gradient(135deg,#0c0c14,#1a1a28)}
+.g-card:nth-child(6) .g-card-preview{background:linear-gradient(135deg,#e8f4fd,#f5e6ff)}
 
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: none;
-}
-.card-image.visible { display: block; }
+.g-card-emoji{font-size:3.5rem;z-index:1;filter:drop-shadow(0 5px 15px rgba(0,0,0,.3));transition:transform .5s}
+.g-card:hover .g-card-emoji{transform:scale(1.15) rotate(5deg)}
 
-/* ===== LOVE LETTER SECTION ===== */
-.love-letter {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 100px 40px;
-  text-align: center;
-}
-.letter-content {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  line-height: 2.2;
-  font-style: italic;
-  color: rgba(253,246,240,0.8);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1.2s ease;
-}
-.letter-content.visible { opacity: 1; transform: translateY(0); }
-.letter-signature {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.5rem;
-  color: var(--rose);
-  margin-top: 40px;
-  opacity: 0;
-  transition: all 1s ease 0.4s;
-}
-.letter-signature.visible { opacity: 1; }
+.g-card-theme{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;backdrop-filter:blur(10px)}
+.g-card:nth-child(1) .g-card-theme{background:rgba(255,94,158,.2);color:var(--pink)}
+.g-card:nth-child(2) .g-card-theme{background:rgba(212,165,116,.2);color:var(--gold)}
+.g-card:nth-child(3) .g-card-theme{background:rgba(126,184,255,.2);color:var(--blue)}
+.g-card:nth-child(4) .g-card-theme{background:rgba(212,114,122,.2);color:#d4727a}
+.g-card:nth-child(5) .g-card-theme{background:rgba(212,168,83,.2);color:#d4a853}
+.g-card:nth-child(6) .g-card-theme{background:rgba(197,163,232,.2);color:var(--lavender)}
 
-/* ===== TIMELINE ===== */
-.timeline {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 40px 120px;
-  position: relative;
-}
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--rose), var(--gold), transparent);
-}
-.timeline-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 60px;
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.timeline-item:nth-child(even) { flex-direction: row-reverse; transform: translateX(50px); }
-.timeline-item.visible { opacity: 1; transform: translateX(0); }
-.timeline-dot {
-  width: 16px; height: 16px;
-  background: var(--rose);
-  border-radius: 50%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 20px rgba(194,24,91,0.4);
-}
-.timeline-content {
-  width: 45%;
-  padding: 25px;
-  background: rgba(74,25,66,0.3);
-  border-radius: 16px;
-  border: 1px solid rgba(232,160,191,0.1);
-  backdrop-filter: blur(10px);
-}
-.timeline-date {
-  font-size: 0.75rem;
-  letter-spacing: 4px;
-  color: var(--gold);
-}
-.timeline-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  margin-top: 8px;
-  font-style: italic;
-  line-height: 1.6;
-}
+.g-card-body{padding:22px 25px 25px}
+.g-card-title{font-family:'Satisfy',cursive;font-size:1.5rem;color:var(--text);margin-bottom:6px}
+.g-card-desc{font-size:.8rem;color:var(--text2);line-height:1.7;margin-bottom:15px}
 
-/* ===== WISH SECTION ===== */
-.wish-section {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 80px 40px;
-  position: relative;
-}
-.wish-text {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(2rem, 6vw, 5rem);
-  color: var(--rose);
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.wish-text.visible { opacity: 1; transform: scale(1); }
-.wish-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  color: var(--gold);
-  margin-top: 20px;
-  letter-spacing: 4px;
-  opacity: 0;
-  transition: all 1s ease 0.5s;
-}
-.wish-sub.visible { opacity: 1; }
+.g-card-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.g-feat{padding:3px 10px;border-radius:12px;font-size:.6rem;font-weight:600;letter-spacing:1px;background:rgba(255,255,255,.04);color:var(--text2);border:1px solid rgba(255,255,255,.06)}
 
-/* ===== MUSIC TOGGLE ===== */
-.music-toggle {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px; height: 50px;
-  border-radius: 50%;
-  background: rgba(74,25,66,0.8);
-  border: 1px solid rgba(232,160,191,0.3);
-  color: var(--rose);
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.music-toggle:hover { background: rgba(194,24,91,0.3); transform: scale(1.1); }
+.g-card-btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-family:'Quicksand',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;text-align:center;transition:all .3s;color:#fff}
+.g-card:nth-child(1) .g-card-btn{background:linear-gradient(135deg,var(--pink),var(--rose))}
+.g-card:nth-child(2) .g-card-btn{background:linear-gradient(135deg,var(--gold),#c9a96e)}
+.g-card:nth-child(3) .g-card-btn{background:linear-gradient(135deg,var(--lavender),var(--blue))}
+.g-card:nth-child(4) .g-card-btn{background:linear-gradient(135deg,#d4727a,var(--rose))}
+.g-card:nth-child(5) .g-card-btn{background:linear-gradient(135deg,#d4a853,var(--gold))}
+.g-card:nth-child(6) .g-card-btn{background:linear-gradient(135deg,var(--mint),var(--blue))}
+.g-card-btn:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(0,0,0,.3);filter:brightness(1.1)}
 
-/* ===== CUSTOM CURSOR ===== */
-.cursor-heart {
-  position: fixed;
-  width: 20px; height: 20px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 16px;
-}
-body:hover .cursor-heart { opacity: 1; }
+/* ===== IMAGE SHOWCASE ===== */
+.img-showcase{max-width:1200px;margin:0 auto;padding:20px 30px 80px;position:relative;z-index:2}
+.img-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.img-item{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:16px;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.img-item.visible{opacity:1;transform:translateY(0)}
+.img-item:hover{transform:translateY(-6px);box-shadow:0 15px 40px rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)}
+.img-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .5s}
+.img-item:hover .img-thumb{transform:scale(1.05)}
+.img-placeholder{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,rgba(255,94,158,.05),rgba(126,184,255,.05))}
+.img-info{padding:15px 18px}
+.img-name{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:3px;word-break:break-all}
+.img-size{font-size:.65rem;color:var(--text2)}
+
+/* ===== FINAL MESSAGE ===== */
+.final{min-height:50vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:80px 30px;position:relative;z-index:2}
+.final::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,94,158,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.final-emoji{font-size:3rem;opacity:0;transition:all 1s ease}
+.final-emoji.visible{opacity:1}
+.final-title{font-family:'Pinyon Script',cursive;font-size:clamp(2.5rem,7vw,5rem);background:linear-gradient(135deg,var(--pink),var(--lavender),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:15px 0;opacity:0;transform:scale(.85);transition:all 1.5s cubic-bezier(.16,1,.3,1)}
+.final-title.visible{opacity:1;transform:scale(1)}
+.final-sub{font-family:'Satisfy',cursive;font-size:1.2rem;color:var(--gold);opacity:0;transition:all 1s ease .4s}
+.final-sub.visible{opacity:1}
+
+.footer{text-align:center;padding:30px;position:relative;z-index:2;font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:3px}
+
+/* ===== CLICK FX ===== */
+.click-burst{position:fixed;pointer-events:none;z-index:9999;width:5px;height:5px;border-radius:50%;animation:burst .7s ease-out forwards}
+@keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--bx),var(--by)) scale(0);opacity:0}}
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .gallery-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-  .timeline::before { left: 20px; }
-  .timeline-item, .timeline-item:nth-child(even) {
-    flex-direction: column;
-    transform: translateY(30px);
-    padding-left: 50px;
-  }
-  .timeline-dot { left: 20px; }
-  .timeline-content { width: 100%; }
-  .hero-subtitle { letter-spacing: 4px; font-size: 0.9rem; }
+@media(max-width:768px){
+  .gallery{grid-template-columns:1fr;max-width:420px}
+  .img-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 }
-
-/* ===== FIREWORK BURST ===== */
-.firework {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-}
-.firework-particle {
-  position: absolute;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  animation: fireworkBurst 1s ease-out forwards;
-}
-@keyframes fireworkBurst {
-  0% { transform: translate(0,0) scale(1); opacity: 1; }
-  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-}
-
-/* ===== SPARKLE TRAIL ===== */
-.sparkle {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9997;
-  font-size: 10px;
-  animation: sparkle 0.8s ease-out forwards;
-}
-@keyframes sparkle {
-  0% { transform: scale(1) rotate(0deg); opacity: 1; }
-  100% { transform: scale(0) rotate(180deg) translateY(-30px); opacity: 0; }
+@media(max-width:500px){
+  .gallery,.img-grid{padding:20px 15px}
+  .g-card-body{padding:18px 18px 20px}
 }
 </style>
 </head>
@@ -498,249 +156,191 @@ body:hover .cursor-heart { opacity: 1; }
 
 <!-- Preloader -->
 <div class="preloader" id="preloader">
-  <div class="preloader-heart"></div>
-  <p class="preloader-text">Loading our memories...</p>
+  <div class="pre-ring"></div>
+  <p class="pre-text">Opening our love story...</p>
 </div>
 
-<!-- Cursor -->
-<div class="cursor-heart" id="cursorHeart">💕</div>
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Nebulae -->
+<div class="nebula" style="width:450px;height:450px;background:radial-gradient(circle,rgba(255,94,158,.12),transparent);top:5%;left:15%"></div>
+<div class="nebula" style="width:400px;height:400px;background:radial-gradient(circle,rgba(126,184,255,.1),transparent);top:40%;right:5%;animation-delay:3s"></div>
+<div class="nebula" style="width:350px;height:350px;background:radial-gradient(circle,rgba(197,163,232,.1),transparent);bottom:5%;left:35%;animation-delay:5s"></div>
 
 <!-- Particles -->
-<div class="particles-container" id="particles"></div>
+<div class="particles" id="particles"></div>
 
-<!-- Hero -->
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-content">
-    <p class="hero-subtitle">A Celebration of Love</p>
-    <h1 class="hero-title">Happy Birthday</h1>
-    <p class="hero-name">— To My Everything —</p>
-    <p class="hero-date" id="heroDate"></p>
-  </div>
-  <div class="scroll-indicator">
+  <p class="hero-badge">✦ A Celebration Of Love ✦</p>
+  <h1 class="hero-title">Happy Birthday</h1>
+  <p class="hero-sub">To the love of my life</p>
+  <p class="hero-hearts">💖 ✨ 💕 ✨ 💖</p>
+  <div class="hero-arrow">
     <span></span>
+    <p class="hero-arrow-text">Explore</p>
   </div>
 </section>
 
-<!-- Gallery -->
-<div class="section-title-wrap">
-  <p class="section-label">Captured Moments</p>
-  <h2 class="section-title">Our Memories</h2>
+<div class="divider"></div>
+
+<!-- ===== MEMORY SITES ===== -->
+<div class="sec-hd">
+  <p class="sec-hd-icon">🎨</p>
+  <h2 class="sec-hd-title">Our Memory Experiences</h2>
+  <p class="sec-hd-sub">6 beautiful worlds crafted just for you — tap to explore each one</p>
 </div>
-<section class="gallery">
-  <div class="gallery-grid" id="galleryGrid">
-    <!-- Cards generated by JS -->
-  </div>
-</section>
 
-<!-- Love Letter -->
-<section class="love-letter">
-  <div class="section-title-wrap" style="padding-top:0">
-    <p class="section-label">From My Heart</p>
-    <h2 class="section-title">A Letter For You</h2>
-  </div>
-  <p class="letter-content" id="letterContent">
-    Every moment with you feels like a beautiful dream I never want to wake up from.
-    You are my sunshine on cloudy days, my calm in every storm, and the reason my heart
-    beats with so much joy. On this special day, I want you to know that you are the most
-    amazing person in my life. Happy Birthday, my love. Here's to a lifetime of
-    beautiful memories together.
-  </p>
-  <p class="letter-signature" id="letterSig">With All My Love ♥</p>
-</section>
+<section class="gallery" id="gallery">
 
-<!-- Timeline -->
-<div class="section-title-wrap">
-  <p class="section-label">Our Journey</p>
-  <h2 class="section-title">Love Timeline</h2>
-</div>
-<section class="timeline" id="timeline">
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-content">
-      <p class="timeline-date">The Beginning</p>
-      <p class="timeline-text">The day our paths crossed and everything changed forever ✨</p>
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Romantic</span>
+      <span class="g-card-emoji">💕</span>
     </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-content">
-      <p class="timeline-date">First Date</p>
-      <p class="timeline-text">Butterflies, nervous laughs, and the start of something magical 🦋</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-content">
-      <p class="timeline-date">Falling In Love</p>
-      <p class="timeline-text">When I realized you're not just someone special — you're my person 💕</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-content">
-      <p class="timeline-date">Today</p>
-      <p class="timeline-text">Celebrating you — the love of my life. Happy Birthday, beautiful! 🎂</p>
-    </div>
-  </div>
-</section>
-
-<!-- Final Wish -->
-<section class="wish-section">
-  <h2 class="wish-text" id="wishText">Happy Birthday, Beautiful!</h2>
-  <p class="wish-sub" id="wishSub">May all your dreams come true 🌟</p>
-</section>
-
-<!-- Music Toggle -->
-<button class="music-toggle" id="musicToggle" title="Toggle Music">♪</button>
-
-<script>
-// ===== CONFIG - EDIT THESE =====
-const CONFIG = {
-  herName: "My Love",            // Her name
-  birthdayDate: "February 26",   // Birthday date display
-  memoryCards: [
-    { emoji: "📸", caption: "Our first photo together", date: "Memory 1" },
-    { emoji: "🌅", caption: "That beautiful sunset", date: "Memory 2" },
-    { emoji: "💐", caption: "Surprise flowers day", date: "Memory 3" },
-    { emoji: "🎄", caption: "Our first Christmas", date: "Memory 4" },
-    { emoji: "✈️", caption: "Adventure together", date: "Memory 5" },
-    { emoji: "🎂", caption: "Last year's celebration", date: "Memory 6" },
-  ]
-};
-
-// ===== PRELOADER =====
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
-});
-
-// ===== SET DATE =====
-document.getElementById('heroDate').textContent = CONFIG.birthdayDate;
-
-// ===== PARTICLES =====
-function createParticles() {
-  const container = document.getElementById('particles');
-  const symbols = ['♥', '✦', '✧', '♡', '·'];
-  for (let i = 0; i < 40; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      font-size: ${Math.random() * 16 + 6}px;
-      color: ${['#e8a0bf','#d4a574','#c2185b','#fce4ec'][Math.floor(Math.random()*4)]};
-      animation-duration: ${Math.random() * 10 + 8}s;
-      animation-delay: ${Math.random() * 10}s;
-    `;
-    container.appendChild(p);
-  }
-}
-createParticles();
-
-// ===== GALLERY =====
-function buildGallery() {
-  const grid = document.getElementById('galleryGrid');
-  CONFIG.memoryCards.forEach((card, i) => {
-    const div = document.createElement('div');
-    div.className = 'memory-card';
-    div.style.transitionDelay = `${i * 0.15}s`;
-    div.innerHTML = `
-      <div class="photo-placeholder">${card.emoji}</div>
-      <img class="card-image" id="img-${i}" />
-      <label class="upload-zone" id="zone-${i}">
-        <span class="icon">📷</span>
-        <span class="text">Click to add photo</span>
-        <input type="file" accept="image/*" hidden onchange="handleUpload(event, ${i})" />
-      </label>
-      <div class="card-overlay">
-        <span class="card-date">${card.date}</span>
-        <span class="card-caption">${card.caption}</span>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Floating Memories</h3>
+      <p class="g-card-desc">Dreamy floating hearts, parallax scrolling, sparkle cursor trail & firework photo reveals</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Particles</span>
+        <span class="g-feat">✦ Parallax</span>
+        <span class="g-feat">✦ Photo Upload</span>
+        <span class="g-feat">✦ Timeline</span>
       </div>
-    `;
-    grid.appendChild(div);
-  });
-}
-buildGallery();
+      <a href="romantic/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-function handleUpload(e, idx) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    const img = document.getElementById(`img-${idx}`);
-    img.src = ev.target.result;
-    img.classList.add('visible');
-    document.getElementById(`zone-${idx}`).classList.add('has-image');
-    createFirework(e.clientX || window.innerWidth/2, e.clientY || window.innerHeight/2);
-  };
-  reader.readAsDataURL(file);
-}
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Cinematic</span>
+      <span class="g-card-emoji">🎬</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Cinematic Film Strip</h3>
+      <p class="g-card-desc">Film grain overlay, 3-2-1 countdown intro, polaroid gallery with tape effect & floating embers</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Film Grain</span>
+        <span class="g-feat">✦ Countdown</span>
+        <span class="g-feat">✦ Polaroids</span>
+        <span class="g-feat">✦ Scenes</span>
+      </div>
+      <a href="cinematic/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-// ===== SCROLL ANIMATIONS =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Futuristic</span>
+      <span class="g-card-emoji">🌌</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Neon Galaxy</h3>
+      <p class="g-card-desc">200+ star field, shooting stars, neon glow cards, terminal love message & heart constellation</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Starfield</span>
+        <span class="g-feat">✦ Neon Glow</span>
+        <span class="g-feat">✦ Terminal</span>
+        <span class="g-feat">✦ Constellation</span>
+      </div>
+      <a href="galaxy/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-function observeElements() {
-  document.querySelectorAll('.memory-card, .timeline-item, .letter-content, .letter-signature, .wish-text, .wish-sub')
-    .forEach(el => observer.observe(el));
-}
-setTimeout(observeElements, 100);
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Floral</span>
+      <span class="g-card-emoji">🌸</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Rose Garden Timeline</h3>
+      <p class="g-card-desc">Falling petals, watercolor backgrounds, 8-memory photo timeline & love letter with scroll reveals</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Petals</span>
+        <span class="g-feat">✦ Watercolor</span>
+        <span class="g-feat">✦ 8 Memories</span>
+        <span class="g-feat">✦ Love Letter</span>
+      </div>
+      <a href="rose/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-// ===== CURSOR HEART =====
-document.addEventListener('mousemove', (e) => {
-  const cursor = document.getElementById('cursorHeart');
-  cursor.style.left = (e.clientX + 15) + 'px';
-  cursor.style.top = (e.clientY + 15) + 'px';
-});
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Luxury</span>
+      <span class="g-card-emoji">👑</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Midnight Luxe</h3>
+      <p class="g-card-desc">Gold particles, diamond markers, luxury cards, auto-scroll love strip & elegant dark theme</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Gold Theme</span>
+        <span class="g-feat">✦ Diamonds</span>
+        <span class="g-feat">✦ Auto Scroll</span>
+        <span class="g-feat">✦ 8 Memories</span>
+      </div>
+      <a href="luxury/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-// ===== SPARKLE TRAIL =====
-let sparkleThrottle = 0;
-document.addEventListener('mousemove', (e) => {
-  if (Date.now() - sparkleThrottle < 80) return;
-  sparkleThrottle = Date.now();
-  const s = document.createElement('div');
-  s.className = 'sparkle';
-  s.textContent = ['✦','✧','♥','·'][Math.floor(Math.random()*4)];
-  s.style.left = e.clientX + 'px';
-  s.style.top = e.clientY + 'px';
-  s.style.color = ['#e8a0bf','#d4a574','#fce4ec'][Math.floor(Math.random()*3)];
-  document.body.appendChild(s);
-  setTimeout(() => s.remove(), 800);
-});
+  <div class="g-card">
+    <div class="g-card-preview">
+      <span class="g-card-theme">Dreamy</span>
+      <span class="g-card-emoji">☁️</span>
+    </div>
+    <div class="g-card-body">
+      <h3 class="g-card-title">Dreamy Pastel Cloud</h3>
+      <p class="g-card-desc">Rainbow timeline, floating clouds & butterflies, pastel memory cards & confetti click effects</p>
+      <div class="g-card-features">
+        <span class="g-feat">✦ Rainbow</span>
+        <span class="g-feat">✦ Butterflies</span>
+        <span class="g-feat">✦ Pastel</span>
+        <span class="g-feat">✦ Confetti</span>
+      </div>
+      <a href="dreamy/" class="g-card-btn">Enter Memory →</a>
+    </div>
+  </div>
 
-// ===== FIREWORK =====
-function createFirework(x, y) {
-  const fw = document.createElement('div');
-  fw.className = 'firework';
-  fw.style.left = x + 'px';
-  fw.style.top = y + 'px';
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement('div');
-    p.className = 'firework-particle';
-    const angle = (Math.PI * 2 / 20) * i;
-    const dist = 60 + Math.random() * 60;
-    p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
-    p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
-    p.style.background = ['#e8a0bf','#d4a574','#c2185b','#fce4ec','#fff'][Math.floor(Math.random()*5)];
-    fw.appendChild(p);
-  }
-  document.body.appendChild(fw);
-  setTimeout(() => fw.remove(), 1200);
-}
+</section>
 
-// ===== CLICK FIREWORKS =====
-document.addEventListener('click', (e) => {
-  if (e.target.closest('.upload-zone') || e.target.closest('.music-toggle')) return;
-  createFirework(e.clientX, e.clientY);
-});
+<div class="divider"></div>
 
-// ===== PARALLAX =====
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  document.querySelector('.hero-content').style.transform = `translateY(${scrollY * 0.3}px)`;
-});
+<!-- ===== FINALE ===== -->
+<section class="final">
+  <div class="final-emoji" id="fEmoji">🎂</div>
+  <h2 class="final-title" id="fTitle">Happy Birthday, My Everything!</h2>
+  <p class="final-sub" id="fSub">Every pixel here is made with love, just for you ♥</p>
+</section>
+
+<footer class="footer">MADE WITH ♥ — HAPPY BIRTHDAY 2026</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Preloader
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),1800)});
+
+// Stars
+(function(){const c=document.getElementById('stars');for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${Math.random()*3+1}s;animation-delay:${Math.random()*3}s;opacity:${Math.random()*.4+.15}`;c.appendChild(s)}})();
+
+// Particles
+(function(){const c=document.getElementById('particles');const sym=['♥','✦','✧','·','♡'];for(let i=0;i<25;i++){const p=document.createElement('div');p.className='pt';p.textContent=sym[Math.floor(Math.random()*sym.length)];p.style.cssText=`left:${Math.random()*100}%;font-size:${Math.random()*12+6}px;color:${['var(--pink)','var(--gold)','var(--lavender)','var(--blue)','var(--rose)'][Math.floor(Math.random()*5)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s`;c.appendChild(p)}})();
+
+// Scroll observer
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.g-card,.img-item,#fEmoji,#fTitle,#fSub').forEach(el=>obs.observe(el));
+
+// Stagger cards
+document.querySelectorAll('.g-card').forEach((c,i)=>{c.style.transitionDelay=`${i*.1}s`});
+document.querySelectorAll('.img-item').forEach((c,i)=>{c.style.transitionDelay=`${i*.1}s`});
+// Also observe art gallery cards
+document.querySelectorAll('#artGallery .g-card').forEach(el=>obs.observe(el));
+
+// Click burst
+document.addEventListener('click',e=>{if(e.target.closest('a'))return;const colors=['var(--pink)','var(--gold)','var(--lavender)','var(--blue)','var(--mint)','#fff'];for(let i=0;i<10;i++){const p=document.createElement('div');p.className='click-burst';const angle=(Math.PI*2/10)*i;const dist=30+Math.random()*40;p.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;background:${colors[Math.floor(Math.random()*colors.length)]};box-shadow:0 0 6px currentColor;--bx:${Math.cos(angle)*dist}px;--by:${Math.sin(angle)*dist}px`;document.body.appendChild(p);setTimeout(()=>p.remove(),700)}});
+
+// Parallax hero
+window.addEventListener('scroll',()=>{const y=window.scrollY;if(y<window.innerHeight)document.querySelector('.hero').style.transform=`translateY(${y*.25}px)`});
 </script>
 </body>
 </html>
