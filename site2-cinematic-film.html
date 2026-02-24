@@ -262,19 +262,24 @@ body {
 
 .polaroid-upload {
   position: absolute;
-  inset: 0;
+  bottom: 15px;
+  right: 15px;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* This pushes the camera and text to the bottom */
-  padding-bottom: 20px;      /* Gives it some breathing room from the bottom edge */
-  flex-direction: column;
-  gap: 8px;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  padding: 8px 12px;
+  border-radius: 20px;
   cursor: pointer;
   color: var(--silver);
   transition: all 0.3s;
   z-index: 2;
 }
-.polaroid-upload:hover { color: var(--amber); }
+
+.polaroid-upload:hover { 
+  background: rgba(232, 168, 124, 0.2); /* Subtle amber glow on hover */
+  color: var(--amber); 
+}
 .polaroid-upload.hidden { display: none; }
 .polaroid-upload input { display: none; }
 .polaroid-upload .cam { font-size: 2rem; }
