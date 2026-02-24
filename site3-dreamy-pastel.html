@@ -227,8 +227,16 @@ body {
   box-shadow: 0 6px 25px rgba(0,0,0,0.12);
 }
 
-.p-photo-side { width: 45%; padding: 0 25px; }
-.p-text-side { width: 45%; padding: 0 25px; padding-top: 15px; }
+.p-photo-side { 
+  width: 45%; 
+  padding: 0 40px; /* Increased padding */
+}
+
+.p-text-side { 
+  width: 45%; 
+  padding: 0 40px; /* Increased padding */
+  padding-top: 15px; 
+}
 
 .p-photo-card {
   background: white; border-radius: 20px; overflow: hidden;
@@ -288,6 +296,10 @@ body {
   border-radius: 20px; font-size: 0.65rem;
   font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
   color: white; margin-bottom: 10px;
+}
+  .p-text-badge, .p-text-title, .p-text-desc {
+  position: relative; /* Required for z-index to work */
+  z-index: 5;         /* Higher than the emojis */
 }
 .p-item:nth-child(1) .p-text-badge { background: var(--pink); }
 .p-item:nth-child(2) .p-text-badge { background: var(--lavender); }
@@ -376,16 +388,43 @@ body {
   font-size: 1rem; color: var(--text-light);
 }
 
+  
 @media (max-width: 900px) {
   .p-timeline::before { left: 25px; }
+  
   .p-item, .p-item:nth-child(even) {
-    flex-direction: column; padding-left: 55px;
+    flex-direction: column; 
+    padding-left: 80px; /* INCREASED: Pushes all content right to clear the emoji */
   }
-  .p-dot { left: 25px; width: 35px; height: 35px; font-size: 1rem; }
-  .p-photo-side, .p-text-side { width: 100%; padding: 0; }
-  .p-text-side { padding-top: 20px; }
+  
+  .p-dot { 
+    left: 25px; 
+    width: 35px; 
+    height: 35px; 
+    font-size: 1rem; 
+    z-index: 5; /* Ensures the dot stays in the background */
+  }
+  
+  .p-photo-side, .p-text-side { 
+    width: 100%; 
+    padding: 0; 
+  }
+  
+  .p-text-side { 
+    padding-top: 20px;
+    position: relative; 
+    z-index: 10; /* Pulls the text up so it never gets hidden */
+  }
+}
+@keyframes float {
+  0% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+  100% { transform: translateX(-50%) translateY(0); }
 }
 
+.p-dot {
+  animation: float 3s ease-in-out infinite;
+}
 /* ===== CLICK CONFETTI ===== */
 .confetti-piece {
   position: fixed; pointer-events: none; z-index: 9999;
